@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:trustmeter/Screens/login_screen.dart';
+import 'package:trustmeter/Screens/register_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -54,7 +55,13 @@ class WelcomeScreen extends StatelessWidget {
                       style: TextStyle(fontSize: 18.0, color: Colors.black),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegisterScreen()),
+                    );
+                  },
                 ),
               ),
               Container(
