@@ -32,18 +32,34 @@ class LoginScreen extends StatelessWidget {
                 Container(
                   width: size.width * 0.8,
                   margin: EdgeInsets.only(bottom: 10),
-                  child: Text(
-                    "Username *",
-                    style: TextStyle(fontSize: 16),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Username ",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Text(
+                        "*",
+                        style: TextStyle(fontSize: 16, color: Colors.red),
+                      ),
+                    ],
                   ),
                 ),
                 TextFieldContainer(child: TextField()),
                 Container(
                   width: size.width * 0.8,
                   margin: EdgeInsets.only(bottom: 10),
-                  child: Text(
-                    "Password *",
-                    style: TextStyle(fontSize: 16),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Password ",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Text(
+                        "*",
+                        style: TextStyle(fontSize: 16, color: Colors.red),
+                      ),
+                    ],
                   ),
                 ),
                 TextFieldContainer(child: TextField()),
