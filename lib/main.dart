@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Trust Meter",
       theme: ThemeData(),
+      debugShowCheckedModeBanner: false,
       home: WelcomeScreen(),
     );
   }
