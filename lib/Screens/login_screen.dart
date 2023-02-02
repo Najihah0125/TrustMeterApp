@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:trustmeter/Screens/home_screen.dart';
 
+import '../Components/text_field_component.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -89,24 +91,6 @@ class LoginScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class TextFieldContainer extends StatelessWidget {
-  const TextFieldContainer({super.key, required this.child});
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      margin: EdgeInsets.only(bottom: 30),
-      width: size.width * 0.8,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-      ),
-      child: child,
     );
   }
 }
