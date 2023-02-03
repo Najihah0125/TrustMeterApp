@@ -12,9 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Trust Meter",
-      theme: ThemeData(),
+      theme: ThemeData(
+          appBarTheme:
+              const AppBarTheme(iconTheme: IconThemeData(color: Colors.black))),
       debugShowCheckedModeBanner: false,
-      home: WelcomeScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }
