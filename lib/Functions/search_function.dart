@@ -24,31 +24,31 @@ class _SearchFunctionState extends State<SearchFunction> {
       child: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 50),
-            padding: EdgeInsets.only(left: 20),
+            margin: const EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(left: 20),
             width: size.width,
-            child: Text(
+            child: const Text(
               "Search seller's trustworthiness result",
               style: TextStyle(fontSize: 21),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 20),
-            padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            margin: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
             width: size.width * 0.9,
             height: size.height * 0.4,
             decoration: BoxDecoration(color: Colors.white, boxShadow: [
               BoxShadow(
                   color: Colors.grey.withOpacity(0.5),
-                  offset: Offset(0, 4),
+                  offset: const Offset(0, 4),
                   blurRadius: 4)
             ]),
             child: Column(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(bottom: 10),
+                  margin: const EdgeInsets.only(bottom: 10),
                   child: Row(
-                    children: <Widget>[
+                    children: const <Widget>[
                       Text("Name of account", style: TextStyle(fontSize: 16)),
                       Text(" *",
                           style: TextStyle(fontSize: 16, color: Colors.red)),
@@ -56,19 +56,24 @@ class _SearchFunctionState extends State<SearchFunction> {
                   ),
                 ),
                 Container(
-                    margin: EdgeInsets.only(bottom: 20),
+                    margin: const EdgeInsets.only(bottom: 20),
                     child: DropdownSearch<String>(
                       mode: Mode.MENU,
-                      items: ['Seller 1', 'Seller 2', 'Seller 3', "Seller 4"],
+                      items: const [
+                        'Seller 1',
+                        'Seller 2',
+                        'Seller 3',
+                        "Seller 4"
+                      ],
                       showSelectedItems: true,
                       showSearchBox: true,
                       onChanged: print,
                       selectedItem: "Seller 1",
                     )),
                 Container(
-                  margin: EdgeInsets.only(bottom: 5),
+                  margin: const EdgeInsets.only(bottom: 5),
                   child: Row(
-                    children: <Widget>[
+                    children: const <Widget>[
                       Text("Type of account", style: TextStyle(fontSize: 16)),
                       Text(" *",
                           style: TextStyle(fontSize: 16, color: Colors.red)),
@@ -86,7 +91,7 @@ class _SearchFunctionState extends State<SearchFunction> {
                         });
                       },
                     ),
-                    Expanded(child: Text("Instagram")),
+                    const Expanded(child: Text("Instagram")),
                     Radio<TypeOfAcc>(
                       groupValue: _typeOfAcc,
                       value: TypeOfAcc.facebook,
@@ -96,17 +101,17 @@ class _SearchFunctionState extends State<SearchFunction> {
                         });
                       },
                     ),
-                    Expanded(child: Text("Facebook")),
+                    const Expanded(child: Text("Facebook")),
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   child: TextButton(
                     child: Container(
-                      color: Color.fromARGB(255, 43, 115, 255),
+                      color: const Color.fromARGB(255, 43, 115, 255),
                       padding: const EdgeInsets.symmetric(
                           vertical: 13, horizontal: 20),
-                      child: Text(
+                      child: const Text(
                         'Search Seller',
                         style: TextStyle(fontSize: 16.0, color: Colors.white),
                       ),
