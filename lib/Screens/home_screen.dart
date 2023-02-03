@@ -45,6 +45,20 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(fontSize: 28, color: Colors.black),
         ),
         automaticallyImplyLeading: false,
+        actions: <Widget>[
+          TextButton.icon(
+            onPressed: () {},
+            icon: Icon(
+              Icons.logout,
+              size: 24.0,
+              color: Colors.white,
+            ),
+            label: Text(
+              'Logout',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
       ),
       // bottomNavigationBar: BottomNavigationBar(
       //   iconSize: 30,
