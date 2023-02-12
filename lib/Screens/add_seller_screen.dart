@@ -16,7 +16,7 @@ class AddSeller extends StatefulWidget {
 
 class _AddSellerState extends State<AddSeller> {
   TypeOfAcc? _typeOfAcc = TypeOfAcc.instagram;
-  String name = "";
+  String selectedValue = '';
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,11 @@ class _AddSellerState extends State<AddSeller> {
                                   .cast<String>(),
                               showSelectedItems: true,
                               showSearchBox: true,
-                              onChanged: print,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value!;
+                                });
+                              },
                             ),
                           ),
                           Row(children: [
@@ -131,12 +135,9 @@ class _AddSellerState extends State<AddSeller> {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const EvaluateCriteria()),
-                                );
+                                addSeller(
+                                    seller_name: selectedValue,
+                                    typeOfAcc: _typeOfAcc?.name.toString());
                               },
                             ),
                           ),
@@ -155,5 +156,17 @@ class _AddSellerState extends State<AddSeller> {
           }
           return Text('Error');
         });
+  }
+
+  Future addSeller(
+      {required String seller_name, required String? typeOfAcc}) async {
+    final docSeller = FirebaseFirestore.instance.collection('sellers').doc();
+
+    final json = {
+      'seller_name': seller_name,
+      'account_type': typeOfAcc,
+    };
+
+    await docSeller.set(json);
   }
 }
