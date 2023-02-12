@@ -1,12 +1,36 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:trustmeter/Screens/home_screen.dart';
+import 'package:trustmeter/Services/auth.dart';
+import 'package:trustmeter/main.dart';
 
-import '../Components/text_field_component.dart';
+import '../../Components/text_field_component.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  final VoidCallback onClickedRegister;
+  const LoginScreen({
+    Key? key,
+    required this.onClickedRegister,
+  }) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        "Username ",
+                        "Email ",
                         style: TextStyle(fontSize: 16),
                       ),
                       Text(
@@ -48,7 +72,11 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                TextFieldContainer(child: TextField()),
+                TextFieldContainer(
+                    child: TextField(
+                  controller: emailController,
+                  textInputAction: TextInputAction.next,
+                )),
                 Container(
                   width: size.width * 0.8,
                   margin: EdgeInsets.only(bottom: 10),
@@ -65,7 +93,11 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                TextFieldContainer(child: TextField()),
+                TextFieldContainer(
+                    child: TextField(
+                  controller: passwordController,
+                  textInputAction: TextInputAction.next,
+                )),
               ],
             ),
           ),
@@ -81,16 +113,49 @@ class LoginScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18.0, color: Colors.white),
                 ),
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
-              },
+              onPressed: logIn,
             ),
           ),
+          Container(
+            margin: EdgeInsets.only(top: 30),
+            child: RichText(
+              text: TextSpan(
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                  text: 'No account?',
+                  children: [
+                    TextSpan(
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = widget.onClickedRegister,
+                      text: 'Register Now',
+                      style: TextStyle(
+                          color: Colors.white,
+                          decoration: TextDecoration.underline),
+                    )
+                  ]),
+            ),
+          )
         ],
       ),
     );
+  }
+
+  Future logIn() async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => Center(
+              child: CircularProgressIndicator(),
+            ));
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }
