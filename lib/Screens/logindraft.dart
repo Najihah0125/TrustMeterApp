@@ -1,11 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:trustmeter/main.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final Function() onClickedRegister;
+
+  const LoginScreen({
+    Key? key,
+    required this.onClickedRegister,
+  }) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -48,7 +54,24 @@ class _LoginScreenState extends State<LoginScreen> {
         ElevatedButton(
           onPressed: logIn,
           child: Text('Log In'),
-        )
+        ),
+        SizedBox(
+          height: 24,
+        ),
+        RichText(
+            text: TextSpan(
+                style: TextStyle(color: Colors.black),
+                text: 'No account? ',
+                children: [
+              TextSpan(
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = widget.onClickedRegister,
+                  text: 'Register Now',
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    color: Colors.black,
+                  ))
+            ]))
       ]),
     );
   }
