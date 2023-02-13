@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trustmeter/Screens/history_screen.dart';
 import '../Functions/search_function.dart';
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 135, 176, 255),
@@ -35,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         actions: <Widget>[
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () => FirebaseAuth.instance.signOut(),
             icon: const Icon(
               Icons.logout,
               size: 24.0,
