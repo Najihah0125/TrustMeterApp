@@ -4,11 +4,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:trustmeter/Screens/login_screen.dart';
 import 'package:trustmeter/Screens/utils.dart';
 import 'package:trustmeter/main.dart';
-
-import '../Components/text_field_component.dart';
 
 class RegisterScreen extends StatefulWidget {
   final Function() onClickedLogIn;
