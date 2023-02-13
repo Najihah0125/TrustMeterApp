@@ -17,6 +17,7 @@ class AddSeller extends StatefulWidget {
 class _AddSellerState extends State<AddSeller> {
   TypeOfAcc? _typeOfAcc = TypeOfAcc.instagram;
   String selectedValue = '';
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,97 +52,105 @@ class _AddSellerState extends State<AddSeller> {
                     ),
                     Container(
                       margin: const EdgeInsets.fromLTRB(30, 20, 30, 25),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
+                      child: Form(
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "i. Name of account",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  " *",
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 16),
+                                )
+                              ],
+                            ),
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(0, 10, 0, 25),
+                              child: DropdownSearch<String>(
+                                mode: Mode.MENU,
+                                items: snapshot.data!.docs
+                                    .map((DocumentSnapshot document) {
+                                      Map<String, dynamic> data = document
+                                          .data()! as Map<String, dynamic>;
+                                      return data["seller_name"];
+                                    })
+                                    .toList()
+                                    .cast<String>(),
+                                autoValidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) =>
+                                    value != null ? 'Choose a seller' : null,
+                                showSelectedItems: true,
+                                showSearchBox: true,
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedValue = value!;
+                                  });
+                                },
+                              ),
+                            ),
+                            Row(children: [
                               Text(
-                                "i. Name of account",
+                                "ii. Type of account",
                                 style: TextStyle(fontSize: 16),
                               ),
                               Text(
                                 " *",
                                 style:
                                     TextStyle(color: Colors.red, fontSize: 16),
-                              )
-                            ],
-                          ),
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(0, 10, 0, 25),
-                            child: DropdownSearch<String>(
-                              mode: Mode.MENU,
-                              items: snapshot.data!.docs
-                                  .map((DocumentSnapshot document) {
-                                    Map<String, dynamic> data = document.data()!
-                                        as Map<String, dynamic>;
-                                    return data["seller_name"];
-                                  })
-                                  .toList()
-                                  .cast<String>(),
-                              showSelectedItems: true,
-                              showSearchBox: true,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedValue = value!;
-                                });
-                              },
-                            ),
-                          ),
-                          Row(children: [
-                            Text(
-                              "ii. Type of account",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            Text(
-                              " *",
-                              style: TextStyle(color: Colors.red, fontSize: 16),
-                            ),
-                          ]),
-                          Row(
-                            children: <Widget>[
-                              Radio<TypeOfAcc>(
-                                groupValue: _typeOfAcc,
-                                value: TypeOfAcc.instagram,
-                                onChanged: (TypeOfAcc? value) {
-                                  setState(() {
-                                    _typeOfAcc = value;
-                                  });
-                                },
                               ),
-                              const Expanded(child: Text("Instagram")),
-                              Radio<TypeOfAcc>(
-                                groupValue: _typeOfAcc,
-                                value: TypeOfAcc.facebook,
-                                onChanged: (TypeOfAcc? value) {
-                                  setState(() {
-                                    _typeOfAcc = value;
-                                  });
-                                },
-                              ),
-                              const Expanded(child: Text("Facebook")),
-                            ],
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 20),
-                            child: TextButton(
-                              child: Container(
-                                color: const Color.fromARGB(255, 43, 115, 255),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 13, horizontal: 20),
-                                child: const Text(
-                                  'Add New Seller',
-                                  style: TextStyle(
-                                      fontSize: 16.0, color: Colors.white),
+                            ]),
+                            Row(
+                              children: <Widget>[
+                                Radio<TypeOfAcc>(
+                                  groupValue: _typeOfAcc,
+                                  value: TypeOfAcc.instagram,
+                                  onChanged: (TypeOfAcc? value) {
+                                    setState(() {
+                                      _typeOfAcc = value;
+                                    });
+                                  },
                                 ),
-                              ),
-                              onPressed: () {
-                                addSeller(
-                                    seller_name: selectedValue,
-                                    typeOfAcc: _typeOfAcc?.name.toString());
-                              },
+                                const Expanded(child: Text("Instagram")),
+                                Radio<TypeOfAcc>(
+                                  groupValue: _typeOfAcc,
+                                  value: TypeOfAcc.facebook,
+                                  onChanged: (TypeOfAcc? value) {
+                                    setState(() {
+                                      _typeOfAcc = value;
+                                    });
+                                  },
+                                ),
+                                const Expanded(child: Text("Facebook")),
+                              ],
                             ),
-                          ),
-                        ],
+                            Container(
+                              margin: const EdgeInsets.only(top: 20),
+                              child: TextButton(
+                                child: Container(
+                                  color:
+                                      const Color.fromARGB(255, 43, 115, 255),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 13, horizontal: 20),
+                                  child: const Text(
+                                    'Add New Seller',
+                                    style: TextStyle(
+                                        fontSize: 16.0, color: Colors.white),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  addSeller(
+                                      seller_name: selectedValue,
+                                      typeOfAcc: _typeOfAcc?.name.toString());
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -161,6 +170,11 @@ class _AddSellerState extends State<AddSeller> {
   Future addSeller(
       {required String seller_name, required String? typeOfAcc}) async {
     final docSeller = FirebaseFirestore.instance.collection('sellers').doc();
+    final isValid = formKey.currentState!.validate();
+    if (!isValid)
+      return Center(
+        child: Text('Error'),
+      );
 
     final json = {
       'seller_name': seller_name,
