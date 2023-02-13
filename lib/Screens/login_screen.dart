@@ -4,25 +4,22 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:trustmeter/Screens/login_screen.dart';
 import 'package:trustmeter/Screens/utils.dart';
 import 'package:trustmeter/main.dart';
 
-import '../Components/text_field_component.dart';
+class LoginScreen extends StatefulWidget {
+  final Function() onClickedRegister;
 
-class RegisterScreen extends StatefulWidget {
-  final Function() onClickedLogIn;
-
-  const RegisterScreen({
+  const LoginScreen({
     Key? key,
-    required this.onClickedLogIn,
+    required this.onClickedRegister,
   }) : super(key: key);
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -48,8 +45,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Container(
             margin: EdgeInsets.only(left: 30),
             child: Text(
-              "Register",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              "Log In",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Form(
@@ -61,15 +61,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 10,
                 ),
                 Container(
-                  margin: EdgeInsets.all(30),
-                  padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                   color: Colors.white,
+                  margin: EdgeInsets.all(30),
+                  padding: EdgeInsets.all(30),
                   child: Column(
                     children: [
                       Row(
                         children: [
                           Text(
-                            "Email Address ",
+                            "Email ",
                             style: TextStyle(fontSize: 16),
                           ),
                           Text(
@@ -130,29 +130,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     backgroundColor: Color.fromARGB(255, 43, 115, 255),
                   ),
                   child: Text(
-                    'Register Now',
+                    'Log In',
                     style: TextStyle(fontSize: 18.0, color: Colors.white),
                   ),
-                  onPressed: register,
+                  onPressed: logIn,
                 ),
                 SizedBox(height: 20),
-                SizedBox(
-                  height: 24,
-                ),
                 RichText(
                     text: TextSpan(
                         style: TextStyle(color: Colors.black),
-                        text: 'Already have an account? ',
+                        text: 'No account? ',
                         children: [
                       TextSpan(
                           recognizer: TapGestureRecognizer()
-                            ..onTap = widget.onClickedLogIn,
-                          text: 'Log In',
+                            ..onTap = widget.onClickedRegister,
+                          text: 'Register Now',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             color: Colors.black,
                           ))
-                    ]))
+                    ])),
               ],
             ),
           ),
@@ -162,7 +159,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Future register() async {
+  Future logIn() async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
 
@@ -174,12 +171,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ));
 
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
       print(e);
-
       Utils.showSnackBar(e.message);
     }
 
