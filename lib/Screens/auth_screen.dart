@@ -1,7 +1,7 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:trustmeter/Screens/logindraft.dart';
-import 'package:trustmeter/Screens/registerdraft.dart';
+import 'package:trustmeter/Screens/login_screen.dart';
+import 'package:trustmeter/Screens/register_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
