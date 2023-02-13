@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:trustmeter/Screens/utils.dart';
 import 'package:trustmeter/main.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -107,6 +108,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
       print(e);
+
+      Utils.showSnackBar(e.message);
     }
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);

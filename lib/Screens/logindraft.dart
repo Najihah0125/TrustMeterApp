@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:trustmeter/Screens/utils.dart';
 import 'package:trustmeter/main.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -90,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
       print(e);
+      Utils.showSnackBar(e.message);
     }
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);

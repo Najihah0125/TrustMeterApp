@@ -62,11 +62,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:trustmeter/Screens/add_seller_screen.dart';
+import 'package:trustmeter/Screens/auth_screen.dart';
 
 // import 'package:trustmeter/Screens/login_screen.dart';
 import 'package:trustmeter/Screens/home_screen.dart';
 import 'package:trustmeter/Screens/logindraft.dart';
+
 import 'package:trustmeter/Screens/welcome_screen.dart';
+
+import 'Screens/utils.dart';
 
 // import 'Screens/backupaddseller.dart';
 
@@ -80,18 +84,16 @@ final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      // scaffoldMessengerKey: Utils.messengerKey,
-      title: "Trust Meter",
-      theme: ThemeData(
-          appBarTheme:
-              const AppBarTheme(iconTheme: IconThemeData(color: Colors.black))),
-      navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-      home: MainPage(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        scaffoldMessengerKey: Utils.messengerKey,
+        title: "Trust Meter",
+        theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+                iconTheme: IconThemeData(color: Colors.black))),
+        navigatorKey: navigatorKey,
+        debugShowCheckedModeBanner: false,
+        home: MainPage(),
+      );
 }
 
 class MainPage extends StatelessWidget {
@@ -112,7 +114,7 @@ class MainPage extends StatelessWidget {
           } else if (snapshot.hasData) {
             return HomeScreen();
           } else {
-            return LoginScreen();
+            return AuthScreen();
           }
         }),
       ),
