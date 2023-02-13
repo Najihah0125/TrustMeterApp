@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -33,51 +35,66 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        SizedBox(
-          height: 40,
-        ),
-        TextField(
-          controller: emailController,
-          textInputAction: TextInputAction.next,
-        ),
-        SizedBox(
-          height: 4,
-        ),
-        TextField(
-          controller: passwordController,
-          textInputAction: TextInputAction.next,
-          obscureText: true,
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        ElevatedButton(
-          onPressed: logIn,
-          child: Text('Log In'),
-        ),
-        SizedBox(
-          height: 24,
-        ),
-        RichText(
-            text: TextSpan(
-                style: TextStyle(color: Colors.black),
-                text: 'No account? ',
-                children: [
-              TextSpan(
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = widget.onClickedRegister,
-                  text: 'Register Now',
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    color: Colors.black,
-                  ))
-            ]))
-      ]),
+      child: Form(
+        key: formKey,
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          SizedBox(
+            height: 40,
+          ),
+          TextFormField(
+            controller: emailController,
+            textInputAction: TextInputAction.next,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (email) =>
+                email != null && !EmailValidator.validate(email)
+                    ? 'Enter a valid email'
+                    : null,
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          TextFormField(
+            controller: passwordController,
+            textInputAction: TextInputAction.next,
+            obscureText: true,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) => value != null && value.length < 6
+                ? 'Enter minimum 6 characters'
+                : null,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: logIn,
+            child: Text('Log In'),
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          RichText(
+              text: TextSpan(
+                  style: TextStyle(color: Colors.black),
+                  text: 'No account? ',
+                  children: [
+                TextSpan(
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = widget.onClickedRegister,
+                    text: 'Register Now',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: Colors.black,
+                    ))
+              ]))
+        ]),
+      ),
     );
   }
 
   Future logIn() async {
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) return;
+
     showDialog(
         context: context,
         barrierDismissible: false,
