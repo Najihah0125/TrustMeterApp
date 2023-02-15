@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
-import 'package:trustmeter/Components/numeric_input_component.dart';
 
 class EvaluateCriteria extends StatefulWidget {
   const EvaluateCriteria({super.key});
@@ -11,20 +11,22 @@ class EvaluateCriteria extends StatefulWidget {
 }
 
 class _EvaluateCriteriaState extends State<EvaluateCriteria> {
-  double positive_statement = 1;
-  double negative_statement = 1;
-  double quality_info = 1;
-  double rating = 1;
-  double recommendation = 1;
-  double correctness = 1;
-  double completeness = 1;
-  double uptodate = 1;
-  double understandability = 1;
-  double security = 1;
-  double confident = 1;
-  double trustable = 1;
+  double positive_statement = 0;
+  double negative_statement = 0;
+  double quality_info = 0;
+  double rating = 0;
+  double recommendation = 0;
+  double correctness = 0;
+  double completeness = 0;
+  double uptodate = 0;
+  double understandability = 0;
+  double security = 0;
+  double confident = 0;
+  double trustable = 0;
+  String evaluator = '';
 
   final formKey = GlobalKey<FormState>();
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -81,12 +83,16 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     child: SpinBox(
                       min: 1,
                       max: 10,
-                      value: 1,
+                      value: positive_statement,
                       onChanged: (value) {
                         setState(() {
                           positive_statement = value;
                         });
                       },
+                      validator: (value) =>
+                          value != null && positive_statement == 0
+                              ? 'Score must be more than 0'
+                              : null,
                       decoration: InputDecoration(
                         label: Text("Score"),
                       ),
@@ -108,12 +114,16 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     child: SpinBox(
                       min: 1,
                       max: 10,
-                      value: 1,
+                      value: negative_statement,
                       onChanged: (value) {
                         setState(() {
                           negative_statement = value;
                         });
                       },
+                      validator: (value) =>
+                          value != null && negative_statement == 0
+                              ? 'Score must be more than 0'
+                              : null,
                       decoration: InputDecoration(
                         label: Text("Score"),
                       ),
@@ -135,12 +145,15 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     child: SpinBox(
                       min: 1,
                       max: 10,
-                      value: 1,
+                      value: quality_info,
                       onChanged: (value) {
                         setState(() {
                           quality_info = value;
                         });
                       },
+                      validator: (value) => value != null && quality_info == 0
+                          ? 'Score must be more than 0'
+                          : null,
                       decoration: InputDecoration(
                         label: Text("Score"),
                       ),
@@ -162,12 +175,15 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     child: SpinBox(
                       min: 1,
                       max: 10,
-                      value: 1,
+                      value: rating,
                       onChanged: (value) {
                         setState(() {
                           rating = value;
                         });
                       },
+                      validator: (value) => value != null && rating == 0
+                          ? 'Score must be more than 0'
+                          : null,
                       decoration: InputDecoration(
                         label: Text("Score"),
                       ),
@@ -189,12 +205,15 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     child: SpinBox(
                       min: 1,
                       max: 10,
-                      value: 1,
+                      value: recommendation,
                       onChanged: (value) {
                         setState(() {
                           recommendation = value;
                         });
                       },
+                      validator: (value) => value != null && recommendation == 0
+                          ? 'Score must be more than 0'
+                          : null,
                       decoration: InputDecoration(
                         label: Text("Score"),
                       ),
@@ -216,12 +235,15 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     child: SpinBox(
                       min: 1,
                       max: 10,
-                      value: 1,
+                      value: correctness,
                       onChanged: (value) {
                         setState(() {
                           correctness = value;
                         });
                       },
+                      validator: (value) => value != null && correctness == 0
+                          ? 'Score must be more than 0'
+                          : null,
                       decoration: InputDecoration(
                         label: Text("Score"),
                       ),
@@ -243,12 +265,15 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     child: SpinBox(
                       min: 1,
                       max: 10,
-                      value: 1,
+                      value: completeness,
                       onChanged: (value) {
                         setState(() {
                           completeness = value;
                         });
                       },
+                      validator: (value) => value != null && completeness == 0
+                          ? 'Score must be more than 0'
+                          : null,
                       decoration: InputDecoration(
                         label: Text("Score"),
                       ),
@@ -270,12 +295,15 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     child: SpinBox(
                       min: 1,
                       max: 10,
-                      value: 1,
+                      value: uptodate,
                       onChanged: (value) {
                         setState(() {
                           uptodate = value;
                         });
                       },
+                      validator: (value) => value != null && uptodate == 0
+                          ? 'Score must be more than 0'
+                          : null,
                       decoration: InputDecoration(
                         label: Text("Score"),
                       ),
@@ -297,12 +325,16 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     child: SpinBox(
                       min: 1,
                       max: 10,
-                      value: 1,
+                      value: understandability,
                       onChanged: (value) {
                         setState(() {
                           understandability = value;
                         });
                       },
+                      validator: (value) =>
+                          value != null && understandability == 0
+                              ? 'Score must be more than 0'
+                              : null,
                       decoration: InputDecoration(
                         label: Text("Score"),
                       ),
@@ -324,12 +356,15 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     child: SpinBox(
                       min: 1,
                       max: 10,
-                      value: 1,
+                      value: security,
                       onChanged: (value) {
                         setState(() {
                           security = value;
                         });
                       },
+                      validator: (value) => value != null && security == 0
+                          ? 'Score must be more than 0'
+                          : null,
                       decoration: InputDecoration(
                         label: Text("Score"),
                       ),
@@ -351,12 +386,15 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     child: SpinBox(
                       min: 1,
                       max: 10,
-                      value: 1,
+                      value: confident,
                       onChanged: (value) {
                         setState(() {
                           confident = value;
                         });
                       },
+                      validator: (value) => value != null && confident == 0
+                          ? 'Score must be more than 0'
+                          : null,
                       decoration: InputDecoration(
                         label: Text("Score"),
                       ),
@@ -378,12 +416,15 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     child: SpinBox(
                       min: 1,
                       max: 10,
-                      value: 1,
+                      value: trustable,
                       onChanged: (value) {
                         setState(() {
                           trustable = value;
                         });
                       },
+                      validator: (value) => value != null && trustable == 0
+                          ? 'Score must be more than 0'
+                          : null,
                       decoration: InputDecoration(
                         label: Text("Score"),
                       ),
@@ -401,18 +442,19 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     ),
                     onPressed: () {
                       evaluateCriteria(
-                          positive_statement: positive_statement,
-                          negative_statement: negative_statement,
-                          quality_info: quality_info,
-                          rating: rating,
-                          recommendation: recommendation,
-                          correctness: correctness,
-                          completeness: completeness,
-                          uptodate: uptodate,
-                          understandability: understandability,
-                          security: security,
-                          confident: confident,
-                          trustable: trustable);
+                        positive_statement: positive_statement,
+                        negative_statement: negative_statement,
+                        quality_info: quality_info,
+                        rating: rating,
+                        recommendation: recommendation,
+                        correctness: correctness,
+                        completeness: completeness,
+                        uptodate: uptodate,
+                        understandability: understandability,
+                        security: security,
+                        confident: confident,
+                        trustable: trustable,
+                      );
                     },
                   ),
                 ],
@@ -427,40 +469,40 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
     );
   }
 
-  Future evaluateCriteria(
-      {required double positive_statement,
-      required double negative_statement,
-      required double quality_info,
-      required double rating,
-      required double recommendation,
-      required double correctness,
-      required double completeness,
-      required double uptodate,
-      required double understandability,
-      required double security,
-      required double confident,
-      required double trustable}) async {
+  Future evaluateCriteria({
+    required double positive_statement,
+    required double negative_statement,
+    required double quality_info,
+    required double rating,
+    required double recommendation,
+    required double correctness,
+    required double completeness,
+    required double uptodate,
+    required double understandability,
+    required double security,
+    required double confident,
+    required double trustable,
+  }) async {
     final docSeller =
         FirebaseFirestore.instance.collection('evaluations').doc();
-    final isValid = formKey.currentState!.validate();
-    if (!isValid)
-      return Center(
-        child: Text('Error'),
-      );
 
     final json = {
-      'positive_statement': positive_statement,
-      'negative_statement': negative_statement,
-      'quality_info': quality_info,
-      'rating': rating,
-      'recommendation': recommendation,
-      'correctness': correctness,
-      'completeness': completeness,
-      'uptodate': uptodate,
-      'understandability': understandability,
-      'security': security,
-      'confident': confident,
-      'trustable': trustable
+      'criteria': {
+        'positive_statement': positive_statement,
+        'negative_statement': negative_statement,
+        'quality_info': quality_info,
+        'rating': rating,
+        'recommendation': recommendation,
+        'correctness': correctness,
+        'completeness': completeness,
+        'uptodate': uptodate,
+        'understandability': understandability,
+        'security': security,
+        'confident': confident,
+        'trustable': trustable,
+      },
+      'evaluator_id': user.uid,
+      'date_created': FieldValue.serverTimestamp(),
     };
 
     await docSeller.set(json);
