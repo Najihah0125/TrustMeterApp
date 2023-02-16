@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           appBarTheme:
               const AppBarTheme(iconTheme: IconThemeData(color: Colors.black)),
-          scaffoldBackgroundColor: Color.fromARGB(255, 135, 176, 255),
+          scaffoldBackgroundColor: Colors.white,
         ),
         navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
@@ -32,25 +32,23 @@ class MyApp extends StatelessWidget {
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: ((context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Something went wrong'),
-            );
-          } else if (snapshot.hasData) {
-            return HomeScreen();
-          } else {
-            return AuthScreen();
-          }
-        }),
-      ),
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: ((context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text('Something went wrong'),
+          );
+        } else if (snapshot.hasData) {
+          return HomeScreen();
+        } else {
+          return AuthScreen();
+        }
+      }),
     );
   }
 }
