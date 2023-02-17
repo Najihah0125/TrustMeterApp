@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:trustmeter/Screens/add_seller_screen.dart';
+import 'package:trustmeter/Screens/evaluate_criteria_screen.dart';
 
 class NoSearchResultScreen extends StatefulWidget {
   const NoSearchResultScreen({super.key});
@@ -41,7 +42,7 @@ class _NoSearchResultScreenState extends State<NoSearchResultScreen> {
           SizedBox(
             height: 100,
           ),
-          Text('No Result Found',
+          Text('No evaluation has been made',
               style: TextStyle(
                 fontSize: 20,
               )),
@@ -53,14 +54,14 @@ class _NoSearchResultScreenState extends State<NoSearchResultScreen> {
               color: const Color.fromARGB(255, 43, 115, 255),
               padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 20),
               child: const Text(
-                'Create New Seller',
+                'Evaluate Seller',
                 style: TextStyle(fontSize: 16.0, color: Colors.white),
               ),
             ),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddSeller()),
+                MaterialPageRoute(builder: (context) => EvaluateCriteria()),
               );
             },
           ),
