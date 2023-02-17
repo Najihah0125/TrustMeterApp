@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:trustmeter/Screens/add_seller_screen.dart';
 import 'package:trustmeter/Screens/evaluate_criteria_screen.dart';
 import 'package:trustmeter/Screens/has_search_result_screen.dart';
 import 'package:trustmeter/Screens/no_search_result_screen.dart';
@@ -70,26 +71,38 @@ class _SearchFunctionState extends State<SearchFunction> {
                         Container(
                             margin: const EdgeInsets.only(bottom: 20),
                             child: DropdownSearch<String>(
-                                mode: Mode.MENU,
-                                items: snapshot.data!.docs
-                                    .map((DocumentSnapshot document) {
-                                      Map<String, dynamic> data = document
-                                          .data()! as Map<String, dynamic>;
-                                      return data["seller_name"];
-                                    })
-                                    .toList()
-                                    .cast<String>(),
-                                // autoValidateMode:
-                                //     AutovalidateMode.onUserInteraction,
-                                // validator: (value) =>
-                                //     value != null ? 'Choose a seller' : null,
-                                showSelectedItems: true,
-                                showSearchBox: true,
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedValue = value!;
-                                  });
-                                })),
+                              mode: Mode.MENU,
+                              items: snapshot.data!.docs
+                                  .map((DocumentSnapshot document) {
+                                    Map<String, dynamic> data = document.data()!
+                                        as Map<String, dynamic>;
+                                    return data["seller_name"];
+                                  })
+                                  .toList()
+                                  .cast<String>(),
+                              // autoValidateMode:
+                              //     AutovalidateMode.onUserInteraction,
+                              // validator: (value) =>
+                              //     value != null ? 'Choose a seller' : null,
+                              showSelectedItems: true,
+                              showSearchBox: true,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value!;
+                                });
+                              },
+                              emptyBuilder: (context, searchEntry) =>
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const AddSeller()),
+                                        );
+                                      },
+                                      child: Text('Create New Seller')),
+                            )),
                         Container(
                           margin: const EdgeInsets.only(bottom: 5),
                           child: Row(
