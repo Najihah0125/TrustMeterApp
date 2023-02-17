@@ -5,7 +5,11 @@ import 'package:trustmeter/Screens/add_seller_screen.dart';
 import 'package:trustmeter/Screens/evaluate_criteria_screen.dart';
 
 class NoSearchResultScreen extends StatefulWidget {
-  const NoSearchResultScreen({super.key});
+  final String sellerName;
+  final String? typeAcc;
+  const NoSearchResultScreen(
+      {Key? key, required this.sellerName, required this.typeAcc})
+      : super(key: key);
 
   @override
   State<NoSearchResultScreen> createState() => _NoSearchResultScreenState();
@@ -61,7 +65,10 @@ class _NoSearchResultScreenState extends State<NoSearchResultScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => EvaluateCriteria()),
+                MaterialPageRoute(
+                    builder: (context) => EvaluateCriteria(
+                        sellerName: widget.sellerName,
+                        typeAcc: widget.typeAcc ?? '')),
               );
             },
           ),
