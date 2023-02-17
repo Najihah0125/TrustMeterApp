@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 
 class EvaluateCriteria extends StatefulWidget {
-  const EvaluateCriteria({super.key});
+  final String sellerName;
+  final String typeAcc;
+  const EvaluateCriteria(
+      {Key? key, required this.sellerName, required this.typeAcc})
+      : super(key: key);
 
   @override
   State<EvaluateCriteria> createState() => _EvaluateCriteriaState();
@@ -500,6 +504,10 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
         'security': security,
         'confident': confident,
         'trustable': trustable,
+      },
+      'which_seller': {
+        'seller_name': widget.sellerName,
+        'type_acc': widget.typeAcc,
       },
       'evaluator_id': user.uid,
       'date_created': FieldValue.serverTimestamp(),
