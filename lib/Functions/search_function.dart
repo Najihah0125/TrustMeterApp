@@ -186,11 +186,17 @@ class _SearchFunctionState extends State<SearchFunction> {
 
     docEvaluations.get().then((querySnapshot) {
       if (querySnapshot.docs.isNotEmpty) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => HasSearchResultScreen()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HasSearchResultScreen(
+                    sellerName: seller_name, typeAcc: typeOfAcc)));
       } else {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => NoSearchResultScreen()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => NoSearchResultScreen(
+                    sellerName: seller_name, typeAcc: typeOfAcc)));
       }
     });
   }
