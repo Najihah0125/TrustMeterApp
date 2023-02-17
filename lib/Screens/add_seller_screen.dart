@@ -18,6 +18,14 @@ class _AddSellerState extends State<AddSeller> {
   TypeOfAcc? _typeOfAcc = TypeOfAcc.instagram;
   String selectedValue = '';
   final formKey = GlobalKey<FormState>();
+  final sellerController = TextEditingController();
+
+  @override
+  void dispose() {
+    sellerController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,28 +78,41 @@ class _AddSellerState extends State<AddSeller> {
                             ),
                             Container(
                               margin: const EdgeInsets.fromLTRB(0, 10, 0, 25),
-                              child: DropdownSearch<String>(
-                                mode: Mode.MENU,
-                                items: snapshot.data!.docs
-                                    .map((DocumentSnapshot document) {
-                                      Map<String, dynamic> data = document
-                                          .data()! as Map<String, dynamic>;
-                                      return data["seller_name"];
-                                    })
-                                    .toList()
-                                    .cast<String>(),
-                                autoValidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                validator: (value) =>
-                                    value != null ? 'Choose a seller' : null,
-                                showSelectedItems: true,
-                                showSearchBox: true,
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedValue = value!;
-                                  });
-                                },
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black),
+                                  ),
+                                ),
+                                controller: sellerController,
+                                textInputAction: TextInputAction.next,
+                                // autovalidateMode:
+                                //     AutovalidateMode.onUserInteraction,
+                                // validator: (seller) =>
+                                //     seller != null ? 'Enter seller name' : null,
                               ),
+                              // DropdownSearch<String>(
+                              //   mode: Mode.MENU,
+                              //   items: snapshot.data!.docs
+                              //       .map((DocumentSnapshot document) {
+                              //         Map<String, dynamic> data = document
+                              //             .data()! as Map<String, dynamic>;
+                              //         return data["seller_name"];
+                              //       })
+                              //       .toList()
+                              //       .cast<String>(),
+                              //   autoValidateMode:
+                              //       AutovalidateMode.onUserInteraction,
+                              //   validator: (value) =>
+                              //       value != null ? 'Choose a seller' : null,
+                              //   showSelectedItems: true,
+                              //   showSearchBox: true,
+                              //   onChanged: (value) {
+                              //     setState(() {
+                              //       selectedValue = value!;
+                              //     });
+                              //   },
+                              // ),
                             ),
                             Row(children: [
                               Text(
@@ -144,7 +165,7 @@ class _AddSellerState extends State<AddSeller> {
                                 ),
                                 onPressed: () {
                                   addSeller(
-                                      seller_name: selectedValue,
+                                      seller_name: sellerController,
                                       typeOfAcc: _typeOfAcc?.name.toString());
                                 },
                               ),
@@ -168,16 +189,17 @@ class _AddSellerState extends State<AddSeller> {
   }
 
   Future addSeller(
-      {required String seller_name, required String? typeOfAcc}) async {
+      {required TextEditingController seller_name,
+      required String? typeOfAcc}) async {
     final docSeller = FirebaseFirestore.instance.collection('sellers').doc();
-    final isValid = formKey.currentState!.validate();
-    if (!isValid)
-      return Center(
-        child: Text('Error'),
-      );
+    // final isValid = formKey.currentState!.validate();
+    // if (!isValid)
+    //   return Center(
+    //     child: Text('Error'),
+    //   );
 
     final json = {
-      'seller_name': seller_name,
+      'seller_name': seller_name.text,
       'account_type': typeOfAcc,
     };
 
