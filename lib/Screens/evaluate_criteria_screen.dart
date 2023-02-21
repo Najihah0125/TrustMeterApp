@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 
 class EvaluateCriteria extends StatefulWidget {
-  final String sellerName;
+  final String? sellerName;
   final String typeAcc;
   const EvaluateCriteria(
       {Key? key, required this.sellerName, required this.typeAcc})

@@ -5,7 +5,7 @@ import 'package:trustmeter/Screens/add_seller_screen.dart';
 import 'package:trustmeter/Screens/evaluate_criteria_screen.dart';
 
 class NoSearchResultScreen extends StatefulWidget {
-  final String sellerName;
+  final String? sellerName;
   final String? typeAcc;
   const NoSearchResultScreen(
       {Key? key, required this.sellerName, required this.typeAcc})

@@ -4,7 +4,6 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:trustmeter/Screens/add_seller_screen.dart';
-import 'package:trustmeter/Screens/evaluate_criteria_screen.dart';
 import 'package:trustmeter/Screens/has_search_result_screen.dart';
 import 'package:trustmeter/Screens/no_search_result_screen.dart';
 
@@ -19,7 +18,7 @@ class SearchFunction extends StatefulWidget {
 
 class _SearchFunctionState extends State<SearchFunction> {
   TypeOfAcc? _typeOfAcc = TypeOfAcc.instagram;
-  String selectedValue = '';
+  String? selectedValue;
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -54,6 +53,7 @@ class _SearchFunctionState extends State<SearchFunction> {
                         blurRadius: 4)
                   ]),
                   child: Form(
+                    key: formKey,
                     child: Column(
                       children: <Widget>[
                         Container(
@@ -80,15 +80,16 @@ class _SearchFunctionState extends State<SearchFunction> {
                                   })
                                   .toList()
                                   .cast<String>(),
-                              // autoValidateMode:
-                              //     AutovalidateMode.onUserInteraction,
-                              // validator: (value) =>
-                              //     value != null ? 'Choose a seller' : null,
+                              autoValidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (seller) =>
+                                  seller == null ? 'Choose a seller' : null,
                               showSelectedItems: true,
+                              showClearButton: true,
                               showSearchBox: true,
                               onChanged: (value) {
                                 setState(() {
-                                  selectedValue = value!;
+                                  selectedValue = value;
                                 });
                               },
                               emptyBuilder: (context, searchEntry) =>
@@ -178,7 +179,10 @@ class _SearchFunctionState extends State<SearchFunction> {
   }
 
   Future searchSeller(
-      {required String seller_name, required String? typeOfAcc}) async {
+      {required String? seller_name, required String? typeOfAcc}) async {
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) return;
+
     final docEvaluations = FirebaseFirestore.instance
         .collection('evaluations')
         .where('which_seller.seller_name', isEqualTo: seller_name)
@@ -200,4 +204,11 @@ class _SearchFunctionState extends State<SearchFunction> {
       }
     });
   }
+
+  // showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (context) => Center(
+  //           child: CircularProgressIndicator(),
+  //         ));
 }
