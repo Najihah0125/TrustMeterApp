@@ -61,6 +61,7 @@ class _AddSellerState extends State<AddSeller> {
                     Container(
                       margin: const EdgeInsets.fromLTRB(30, 20, 30, 25),
                       child: Form(
+                        key: formKey,
                         child: Column(
                           children: [
                             Row(
@@ -79,40 +80,23 @@ class _AddSellerState extends State<AddSeller> {
                             Container(
                               margin: const EdgeInsets.fromLTRB(0, 10, 0, 25),
                               child: TextFormField(
-                                decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.black),
+                                  decoration: InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black),
+                                    ),
                                   ),
-                                ),
-                                controller: sellerController,
-                                textInputAction: TextInputAction.next,
-                                // autovalidateMode:
-                                //     AutovalidateMode.onUserInteraction,
-                                // validator: (seller) =>
-                                //     seller != null ? 'Enter seller name' : null,
-                              ),
-                              // DropdownSearch<String>(
-                              //   mode: Mode.MENU,
-                              //   items: snapshot.data!.docs
-                              //       .map((DocumentSnapshot document) {
-                              //         Map<String, dynamic> data = document
-                              //             .data()! as Map<String, dynamic>;
-                              //         return data["seller_name"];
-                              //       })
-                              //       .toList()
-                              //       .cast<String>(),
-                              //   autoValidateMode:
-                              //       AutovalidateMode.onUserInteraction,
-                              //   validator: (value) =>
-                              //       value != null ? 'Choose a seller' : null,
-                              //   showSelectedItems: true,
-                              //   showSearchBox: true,
-                              //   onChanged: (value) {
-                              //     setState(() {
-                              //       selectedValue = value!;
-                              //     });
-                              //   },
-                              // ),
+                                  controller: sellerController,
+                                  textInputAction: TextInputAction.next,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  validator: (value) {
+                                    if (value == null) {
+                                      return 'Enter an account name';
+                                    }
+
+                                    return null;
+                                  }),
                             ),
                             Row(children: [
                               Text(
@@ -165,8 +149,9 @@ class _AddSellerState extends State<AddSeller> {
                                 ),
                                 onPressed: () {
                                   addSeller(
-                                      seller_name: sellerController,
-                                      typeOfAcc: _typeOfAcc?.name.toString());
+                                    seller_name: sellerController.text,
+                                    typeOfAcc: _typeOfAcc?.name.toString(),
+                                  );
                                 },
                               ),
                             ),
@@ -188,21 +173,75 @@ class _AddSellerState extends State<AddSeller> {
         });
   }
 
-  Future addSeller(
-      {required TextEditingController seller_name,
-      required String? typeOfAcc}) async {
+  Future addSeller({
+    required String seller_name,
+    required String? typeOfAcc,
+  }) async {
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) return;
+
     final docSeller = FirebaseFirestore.instance.collection('sellers').doc();
-    // final isValid = formKey.currentState!.validate();
-    // if (!isValid)
-    //   return Center(
-    //     child: Text('Error'),
-    //   );
+    final querySnapshot = FirebaseFirestore.instance
+        .collection('sellers')
+        .where('seller_name', isEqualTo: seller_name)
+        .where('account_type', isEqualTo: typeOfAcc);
 
-    final json = {
-      'seller_name': seller_name.text,
-      'account_type': typeOfAcc,
-    };
-
-    await docSeller.set(json);
+    querySnapshot.get().then((querySnapshot) async {
+      if (querySnapshot.docs.isNotEmpty) {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+                  title: Text('Error'),
+                  content: Text('This seller already exists!'),
+                  actions: <Widget>[
+                    TextButton(
+                      child: Text(
+                        'OK',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Color.fromARGB(255, 43, 115, 255))),
+                    ),
+                  ],
+                ));
+      } else {
+        final json = {
+          'seller_name': seller_name,
+          'account_type': typeOfAcc,
+        };
+        await docSeller.set(json);
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+                  title: Text('Successful'),
+                  content: Text('New seller has been successfully added!'),
+                  actions: <Widget>[
+                    TextButton(
+                      child: Text(
+                        'OK',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EvaluateCriteria(
+                                    sellerName: seller_name,
+                                    typeAcc: typeOfAcc)));
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Color.fromARGB(255, 43, 115, 255))),
+                    ),
+                  ],
+                ));
+      }
+    });
   }
 }
