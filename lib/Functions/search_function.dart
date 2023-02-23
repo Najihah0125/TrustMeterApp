@@ -186,7 +186,7 @@ class _SearchFunctionState extends State<SearchFunction> {
     final docEvaluations = FirebaseFirestore.instance
         .collection('evaluations')
         .where('which_seller.seller_name', isEqualTo: seller_name)
-        .where('which_seller.account_type', isEqualTo: typeOfAcc);
+        .where('which_seller.type_acc', isEqualTo: typeOfAcc);
 
     docEvaluations.get().then((querySnapshot) {
       if (querySnapshot.docs.isNotEmpty) {
@@ -204,11 +204,4 @@ class _SearchFunctionState extends State<SearchFunction> {
       }
     });
   }
-
-  // showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (context) => Center(
-  //           child: CircularProgressIndicator(),
-  //         ));
 }
