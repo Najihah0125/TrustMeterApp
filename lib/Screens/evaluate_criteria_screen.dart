@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
+import 'package:trustmeter/Screens/home_screen.dart';
+import 'package:number_inc_dec/number_inc_dec.dart';
 
 class EvaluateCriteria extends StatefulWidget {
   final String? sellerName;
-  final String typeAcc;
+  final String? typeAcc;
   const EvaluateCriteria(
       {Key? key, required this.sellerName, required this.typeAcc})
       : super(key: key);
@@ -29,7 +31,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
   double trustable = 0;
   String evaluator = '';
 
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final user = FirebaseAuth.instance.currentUser!;
 
   @override
@@ -69,6 +71,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
               ),
             ),
             Form(
+              key: _formKey,
               child: Column(
                 children: [
                   Container(
@@ -84,23 +87,21 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
-                    child: SpinBox(
-                      min: 1,
-                      max: 10,
-                      value: positive_statement,
-                      onChanged: (value) {
-                        setState(() {
-                          positive_statement = value;
-                        });
-                      },
-                      validator: (value) =>
-                          value != null && positive_statement == 0
-                              ? 'Score must be more than 0'
-                              : null,
-                      decoration: InputDecoration(
-                        label: Text("Score"),
-                      ),
-                    ),
+                    child: NumberInputPrefabbed.squaredButtons(
+                        controller: TextEditingController(),
+                        buttonArrangement: ButtonArrangement.incRightDecLeft,
+                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                        onChanged: (newValue) => positive_statement,
+                        min: 1,
+                        max: 10,
+                        initialValue: 0,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || double.parse(value) == 0) {
+                            return 'Value cannot be 0';
+                          }
+                          return null;
+                        }),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
@@ -115,23 +116,21 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
-                    child: SpinBox(
-                      min: 1,
-                      max: 10,
-                      value: negative_statement,
-                      onChanged: (value) {
-                        setState(() {
-                          negative_statement = value;
-                        });
-                      },
-                      validator: (value) =>
-                          value != null && negative_statement == 0
-                              ? 'Score must be more than 0'
-                              : null,
-                      decoration: InputDecoration(
-                        label: Text("Score"),
-                      ),
-                    ),
+                    child: NumberInputPrefabbed.squaredButtons(
+                        controller: TextEditingController(),
+                        buttonArrangement: ButtonArrangement.incRightDecLeft,
+                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                        onChanged: (newValue) => negative_statement,
+                        min: 1,
+                        max: 10,
+                        initialValue: 0,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || double.parse(value) == 0) {
+                            return 'Value cannot be 0';
+                          }
+                          return null;
+                        }),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
@@ -146,22 +145,21 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
-                    child: SpinBox(
-                      min: 1,
-                      max: 10,
-                      value: quality_info,
-                      onChanged: (value) {
-                        setState(() {
-                          quality_info = value;
-                        });
-                      },
-                      validator: (value) => value != null && quality_info == 0
-                          ? 'Score must be more than 0'
-                          : null,
-                      decoration: InputDecoration(
-                        label: Text("Score"),
-                      ),
-                    ),
+                    child: NumberInputPrefabbed.squaredButtons(
+                        controller: TextEditingController(),
+                        buttonArrangement: ButtonArrangement.incRightDecLeft,
+                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                        onChanged: (newValue) => quality_info,
+                        min: 1,
+                        max: 10,
+                        initialValue: 0,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || double.parse(value) == 0) {
+                            return 'Value cannot be 0';
+                          }
+                          return null;
+                        }),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
@@ -176,22 +174,21 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
-                    child: SpinBox(
-                      min: 1,
-                      max: 10,
-                      value: rating,
-                      onChanged: (value) {
-                        setState(() {
-                          rating = value;
-                        });
-                      },
-                      validator: (value) => value != null && rating == 0
-                          ? 'Score must be more than 0'
-                          : null,
-                      decoration: InputDecoration(
-                        label: Text("Score"),
-                      ),
-                    ),
+                    child: NumberInputPrefabbed.squaredButtons(
+                        controller: TextEditingController(),
+                        buttonArrangement: ButtonArrangement.incRightDecLeft,
+                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                        onChanged: (newValue) => rating,
+                        min: 1,
+                        max: 10,
+                        initialValue: 0,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || double.parse(value) == 0) {
+                            return 'Value cannot be 0';
+                          }
+                          return null;
+                        }),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
@@ -206,22 +203,21 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
-                    child: SpinBox(
-                      min: 1,
-                      max: 10,
-                      value: recommendation,
-                      onChanged: (value) {
-                        setState(() {
-                          recommendation = value;
-                        });
-                      },
-                      validator: (value) => value != null && recommendation == 0
-                          ? 'Score must be more than 0'
-                          : null,
-                      decoration: InputDecoration(
-                        label: Text("Score"),
-                      ),
-                    ),
+                    child: NumberInputPrefabbed.squaredButtons(
+                        controller: TextEditingController(),
+                        buttonArrangement: ButtonArrangement.incRightDecLeft,
+                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                        onChanged: (newValue) => recommendation,
+                        min: 1,
+                        max: 10,
+                        initialValue: 0,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || double.parse(value) == 0) {
+                            return 'Value cannot be 0';
+                          }
+                          return null;
+                        }),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
@@ -236,22 +232,21 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
-                    child: SpinBox(
-                      min: 1,
-                      max: 10,
-                      value: correctness,
-                      onChanged: (value) {
-                        setState(() {
-                          correctness = value;
-                        });
-                      },
-                      validator: (value) => value != null && correctness == 0
-                          ? 'Score must be more than 0'
-                          : null,
-                      decoration: InputDecoration(
-                        label: Text("Score"),
-                      ),
-                    ),
+                    child: NumberInputPrefabbed.squaredButtons(
+                        controller: TextEditingController(),
+                        buttonArrangement: ButtonArrangement.incRightDecLeft,
+                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                        onChanged: (newValue) => correctness,
+                        min: 1,
+                        max: 10,
+                        initialValue: 0,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || double.parse(value) == 0) {
+                            return 'Value cannot be 0';
+                          }
+                          return null;
+                        }),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
@@ -266,22 +261,21 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
-                    child: SpinBox(
-                      min: 1,
-                      max: 10,
-                      value: completeness,
-                      onChanged: (value) {
-                        setState(() {
-                          completeness = value;
-                        });
-                      },
-                      validator: (value) => value != null && completeness == 0
-                          ? 'Score must be more than 0'
-                          : null,
-                      decoration: InputDecoration(
-                        label: Text("Score"),
-                      ),
-                    ),
+                    child: NumberInputPrefabbed.squaredButtons(
+                        controller: TextEditingController(),
+                        buttonArrangement: ButtonArrangement.incRightDecLeft,
+                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                        onChanged: (newValue) => completeness,
+                        min: 1,
+                        max: 10,
+                        initialValue: 0,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || double.parse(value) == 0) {
+                            return 'Value cannot be 0';
+                          }
+                          return null;
+                        }),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
@@ -296,22 +290,21 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
-                    child: SpinBox(
-                      min: 1,
-                      max: 10,
-                      value: uptodate,
-                      onChanged: (value) {
-                        setState(() {
-                          uptodate = value;
-                        });
-                      },
-                      validator: (value) => value != null && uptodate == 0
-                          ? 'Score must be more than 0'
-                          : null,
-                      decoration: InputDecoration(
-                        label: Text("Score"),
-                      ),
-                    ),
+                    child: NumberInputPrefabbed.squaredButtons(
+                        controller: TextEditingController(),
+                        buttonArrangement: ButtonArrangement.incRightDecLeft,
+                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                        onChanged: (newValue) => uptodate,
+                        min: 1,
+                        max: 10,
+                        initialValue: 0,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || double.parse(value) == 0) {
+                            return 'Value cannot be 0';
+                          }
+                          return null;
+                        }),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
@@ -326,23 +319,21 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
-                    child: SpinBox(
-                      min: 1,
-                      max: 10,
-                      value: understandability,
-                      onChanged: (value) {
-                        setState(() {
-                          understandability = value;
-                        });
-                      },
-                      validator: (value) =>
-                          value != null && understandability == 0
-                              ? 'Score must be more than 0'
-                              : null,
-                      decoration: InputDecoration(
-                        label: Text("Score"),
-                      ),
-                    ),
+                    child: NumberInputPrefabbed.squaredButtons(
+                        controller: TextEditingController(),
+                        buttonArrangement: ButtonArrangement.incRightDecLeft,
+                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                        onChanged: (newValue) => understandability,
+                        min: 1,
+                        max: 10,
+                        initialValue: 0,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || double.parse(value) == 0) {
+                            return 'Value cannot be 0';
+                          }
+                          return null;
+                        }),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
@@ -357,22 +348,21 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
-                    child: SpinBox(
-                      min: 1,
-                      max: 10,
-                      value: security,
-                      onChanged: (value) {
-                        setState(() {
-                          security = value;
-                        });
-                      },
-                      validator: (value) => value != null && security == 0
-                          ? 'Score must be more than 0'
-                          : null,
-                      decoration: InputDecoration(
-                        label: Text("Score"),
-                      ),
-                    ),
+                    child: NumberInputPrefabbed.squaredButtons(
+                        controller: TextEditingController(),
+                        buttonArrangement: ButtonArrangement.incRightDecLeft,
+                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                        onChanged: (newValue) => security,
+                        min: 1,
+                        max: 10,
+                        initialValue: 0,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || double.parse(value) == 0) {
+                            return 'Value cannot be 0';
+                          }
+                          return null;
+                        }),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
@@ -387,22 +377,21 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
-                    child: SpinBox(
-                      min: 1,
-                      max: 10,
-                      value: confident,
-                      onChanged: (value) {
-                        setState(() {
-                          confident = value;
-                        });
-                      },
-                      validator: (value) => value != null && confident == 0
-                          ? 'Score must be more than 0'
-                          : null,
-                      decoration: InputDecoration(
-                        label: Text("Score"),
-                      ),
-                    ),
+                    child: NumberInputPrefabbed.squaredButtons(
+                        controller: TextEditingController(),
+                        buttonArrangement: ButtonArrangement.incRightDecLeft,
+                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                        onChanged: (newValue) => confident,
+                        min: 1,
+                        max: 10,
+                        initialValue: 0,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || double.parse(value) == 0) {
+                            return 'Value cannot be 0';
+                          }
+                          return null;
+                        }),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
@@ -417,22 +406,21 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
-                    child: SpinBox(
-                      min: 1,
-                      max: 10,
-                      value: trustable,
-                      onChanged: (value) {
-                        setState(() {
-                          trustable = value;
-                        });
-                      },
-                      validator: (value) => value != null && trustable == 0
-                          ? 'Score must be more than 0'
-                          : null,
-                      decoration: InputDecoration(
-                        label: Text("Score"),
-                      ),
-                    ),
+                    child: NumberInputPrefabbed.squaredButtons(
+                        controller: TextEditingController(),
+                        buttonArrangement: ButtonArrangement.incRightDecLeft,
+                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                        onChanged: (newValue) => trustable,
+                        min: 1,
+                        max: 10,
+                        initialValue: 0,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || double.parse(value) == 0) {
+                            return 'Value cannot be 0';
+                          }
+                          return null;
+                        }),
                   ),
                   TextButton(
                     child: Container(
@@ -487,32 +475,81 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
     required double confident,
     required double trustable,
   }) async {
-    final docSeller =
-        FirebaseFirestore.instance.collection('evaluations').doc();
+    if (_formKey.currentState!.validate()) {
+      final docSeller =
+          FirebaseFirestore.instance.collection('evaluations').doc();
 
-    final json = {
-      'criteria': {
-        'positive_statement': positive_statement,
-        'negative_statement': negative_statement,
-        'quality_info': quality_info,
-        'rating': rating,
-        'recommendation': recommendation,
-        'correctness': correctness,
-        'completeness': completeness,
-        'uptodate': uptodate,
-        'understandability': understandability,
-        'security': security,
-        'confident': confident,
-        'trustable': trustable,
-      },
-      'which_seller': {
-        'seller_name': widget.sellerName,
-        'type_acc': widget.typeAcc,
-      },
-      'evaluator_id': user.uid,
-      'date_created': FieldValue.serverTimestamp(),
-    };
+      final json = {
+        'criteria': {
+          'positive_statement': positive_statement,
+          'negative_statement': negative_statement,
+          'quality_info': quality_info,
+          'rating': rating,
+          'recommendation': recommendation,
+          'correctness': correctness,
+          'completeness': completeness,
+          'uptodate': uptodate,
+          'understandability': understandability,
+          'security': security,
+          'confident': confident,
+          'trustable': trustable,
+        },
+        'which_seller': {
+          'seller_name': widget.sellerName,
+          'type_acc': widget.typeAcc,
+        },
+        'evaluator_id': user.uid,
+        'date_created': FieldValue.serverTimestamp(),
+      };
 
-    await docSeller.set(json);
+      await docSeller.set(json);
+
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => AlertDialog(
+                title: Text('Successful'),
+                content: Text('Seller has been successfully evaluated!'),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text(
+                      'OK',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
+                    },
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Color.fromARGB(255, 43, 115, 255))),
+                  ),
+                ],
+              ));
+    } else {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => AlertDialog(
+                title: Text('Error'),
+                content: Text('The form is not complete!'),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text(
+                      'OK',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Color.fromARGB(255, 43, 115, 255))),
+                  ),
+                ],
+              ));
+    }
   }
 }
