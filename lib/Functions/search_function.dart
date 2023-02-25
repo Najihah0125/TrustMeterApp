@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -57,54 +58,6 @@ class _SearchFunctionState extends State<SearchFunction> {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          margin: const EdgeInsets.only(bottom: 10),
-                          child: Row(
-                            children: const <Widget>[
-                              Text("Name of account",
-                                  style: TextStyle(fontSize: 16)),
-                              Text(" *",
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.red)),
-                            ],
-                          ),
-                        ),
-                        Container(
-                            margin: const EdgeInsets.only(bottom: 20),
-                            child: DropdownSearch<String>(
-                              mode: Mode.MENU,
-                              items: snapshot.data!.docs
-                                  .map((DocumentSnapshot document) {
-                                    Map<String, dynamic> data = document.data()!
-                                        as Map<String, dynamic>;
-                                    return data["seller_name"];
-                                  })
-                                  .toList()
-                                  .cast<String>(),
-                              autoValidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (seller) =>
-                                  seller == null ? 'Choose a seller' : null,
-                              showSelectedItems: true,
-                              showClearButton: true,
-                              showSearchBox: true,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedValue = value;
-                                });
-                              },
-                              emptyBuilder: (context, searchEntry) =>
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const AddSeller()),
-                                        );
-                                      },
-                                      child: Text('Create New Seller')),
-                            )),
-                        Container(
                           margin: const EdgeInsets.only(bottom: 5),
                           child: Row(
                             children: const <Widget>[
@@ -140,6 +93,67 @@ class _SearchFunctionState extends State<SearchFunction> {
                             const Expanded(child: Text("Facebook")),
                           ],
                         ),
+                        SizedBox(height: 20),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            children: const <Widget>[
+                              Text("Name of account",
+                                  style: TextStyle(fontSize: 16)),
+                              Text(" *",
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.red)),
+                            ],
+                          ),
+                        ),
+                        Container(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            child: DropdownSearch<String>(
+                                mode: Mode.MENU,
+                                items:
+                                    itemsDropdown(_typeOfAcc?.name.toString()),
+                                autoValidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (seller) =>
+                                    seller == null ? 'Choose a seller' : null,
+                                showSelectedItems: true,
+                                showClearButton: true,
+                                showSearchBox: true,
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedValue = value;
+                                  });
+                                },
+                                //if seller does not exists
+                                emptyBuilder: (context, searchEntry) => Center(
+                                        child: RichText(
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(
+                                          text: "Haven't found the seller?\n",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text: 'Add a new seller',
+                                                style: TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 43, 115, 255),
+                                                    fontSize: 16,
+                                                    decoration: TextDecoration
+                                                        .underline),
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        AddSeller()));
+                                                      }),
+                                          ]),
+                                    )))),
                         Container(
                           margin: const EdgeInsets.only(top: 20),
                           child: TextButton(
@@ -176,6 +190,25 @@ class _SearchFunctionState extends State<SearchFunction> {
         return Text('Error');
       },
     );
+  }
+
+  List<String> itemsDropdown(String? typeOfAcc) {
+    List<String> dropdownItems = [];
+
+    final docSellers = FirebaseFirestore.instance
+        .collection('sellers')
+        .where('account_type', isEqualTo: typeOfAcc);
+
+    docSellers.get().then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+        String sellersName = data['seller_name'];
+
+        dropdownItems.add(sellersName);
+      });
+    });
+    return dropdownItems;
   }
 
   Future searchSeller(
