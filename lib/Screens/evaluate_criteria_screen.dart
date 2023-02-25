@@ -16,22 +16,51 @@ class EvaluateCriteria extends StatefulWidget {
 }
 
 class _EvaluateCriteriaState extends State<EvaluateCriteria> {
-  double positive_statement = 0;
-  double negative_statement = 0;
-  double quality_info = 0;
-  double rating = 0;
-  double recommendation = 0;
-  double correctness = 0;
-  double completeness = 0;
-  double uptodate = 0;
-  double understandability = 0;
-  double security = 0;
-  double confident = 0;
-  double trustable = 0;
-  String evaluator = '';
+  // double positive_statement = 0;
+  // double negative_statement = 0;
+  // double quality_info = 0;
+  // double rating = 0;
+  // double recommendation = 0;
+  // double correctness = 0;
+  // double completeness = 0;
+  // double uptodate = 0;
+  // double understandability = 0;
+  // double security = 0;
+  // double confident = 0;
+  // double trustable = 0;
+  // String evaluator = '';
 
   final _formKey = GlobalKey<FormState>();
   final user = FirebaseAuth.instance.currentUser!;
+  final posStateCtrl = TextEditingController();
+  final negStateCtrl = TextEditingController();
+  final quaInfoCtrl = TextEditingController();
+  final ratingCtrl = TextEditingController();
+  final recoCtrl = TextEditingController();
+  final corrCtrl = TextEditingController();
+  final compCtrl = TextEditingController();
+  final upToDateCtrl = TextEditingController();
+  final undCtrl = TextEditingController();
+  final secuCtrl = TextEditingController();
+  final confCtrl = TextEditingController();
+  final trustCtrl = TextEditingController();
+
+  @override
+  void dispose() {
+    posStateCtrl.dispose();
+    negStateCtrl.dispose();
+    quaInfoCtrl.dispose();
+    ratingCtrl.dispose();
+    recoCtrl.dispose();
+    corrCtrl.dispose();
+    compCtrl.dispose();
+    upToDateCtrl.dispose();
+    undCtrl.dispose();
+    secuCtrl.dispose();
+    confCtrl.dispose();
+    trustCtrl.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,10 +116,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
                     child: NumberInputPrefabbed.squaredButtons(
-                        controller: TextEditingController(),
+                        controller: posStateCtrl,
                         buttonArrangement: ButtonArrangement.incRightDecLeft,
                         incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        onChanged: (newValue) => positive_statement,
                         min: 1,
                         max: 10,
                         initialValue: 0,
@@ -116,10 +144,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
                     child: NumberInputPrefabbed.squaredButtons(
-                        controller: TextEditingController(),
+                        controller: negStateCtrl,
                         buttonArrangement: ButtonArrangement.incRightDecLeft,
                         incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        onChanged: (newValue) => negative_statement,
                         min: 1,
                         max: 10,
                         initialValue: 0,
@@ -145,10 +172,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
                     child: NumberInputPrefabbed.squaredButtons(
-                        controller: TextEditingController(),
+                        controller: quaInfoCtrl,
                         buttonArrangement: ButtonArrangement.incRightDecLeft,
                         incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        onChanged: (newValue) => quality_info,
                         min: 1,
                         max: 10,
                         initialValue: 0,
@@ -174,10 +200,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
                     child: NumberInputPrefabbed.squaredButtons(
-                        controller: TextEditingController(),
+                        controller: ratingCtrl,
                         buttonArrangement: ButtonArrangement.incRightDecLeft,
                         incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        onChanged: (newValue) => rating,
                         min: 1,
                         max: 10,
                         initialValue: 0,
@@ -203,10 +228,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
                     child: NumberInputPrefabbed.squaredButtons(
-                        controller: TextEditingController(),
+                        controller: recoCtrl,
                         buttonArrangement: ButtonArrangement.incRightDecLeft,
                         incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        onChanged: (newValue) => recommendation,
                         min: 1,
                         max: 10,
                         initialValue: 0,
@@ -232,10 +256,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
                     child: NumberInputPrefabbed.squaredButtons(
-                        controller: TextEditingController(),
+                        controller: corrCtrl,
                         buttonArrangement: ButtonArrangement.incRightDecLeft,
                         incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        onChanged: (newValue) => correctness,
                         min: 1,
                         max: 10,
                         initialValue: 0,
@@ -261,10 +284,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
                     child: NumberInputPrefabbed.squaredButtons(
-                        controller: TextEditingController(),
+                        controller: compCtrl,
                         buttonArrangement: ButtonArrangement.incRightDecLeft,
                         incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        onChanged: (newValue) => completeness,
                         min: 1,
                         max: 10,
                         initialValue: 0,
@@ -290,10 +312,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
                     child: NumberInputPrefabbed.squaredButtons(
-                        controller: TextEditingController(),
+                        controller: upToDateCtrl,
                         buttonArrangement: ButtonArrangement.incRightDecLeft,
                         incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        onChanged: (newValue) => uptodate,
                         min: 1,
                         max: 10,
                         initialValue: 0,
@@ -319,10 +340,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
                     child: NumberInputPrefabbed.squaredButtons(
-                        controller: TextEditingController(),
+                        controller: undCtrl,
                         buttonArrangement: ButtonArrangement.incRightDecLeft,
                         incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        onChanged: (newValue) => understandability,
                         min: 1,
                         max: 10,
                         initialValue: 0,
@@ -348,10 +368,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
                     child: NumberInputPrefabbed.squaredButtons(
-                        controller: TextEditingController(),
+                        controller: secuCtrl,
                         buttonArrangement: ButtonArrangement.incRightDecLeft,
                         incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        onChanged: (newValue) => security,
                         min: 1,
                         max: 10,
                         initialValue: 0,
@@ -377,10 +396,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
                     child: NumberInputPrefabbed.squaredButtons(
-                        controller: TextEditingController(),
+                        controller: confCtrl,
                         buttonArrangement: ButtonArrangement.incRightDecLeft,
                         incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        onChanged: (newValue) => confident,
                         min: 1,
                         max: 10,
                         initialValue: 0,
@@ -406,10 +424,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width * 0.6,
                     child: NumberInputPrefabbed.squaredButtons(
-                        controller: TextEditingController(),
+                        controller: trustCtrl,
                         buttonArrangement: ButtonArrangement.incRightDecLeft,
                         incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        onChanged: (newValue) => trustable,
                         min: 1,
                         max: 10,
                         initialValue: 0,
@@ -433,18 +450,20 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     ),
                     onPressed: () {
                       evaluateCriteria(
-                        positive_statement: positive_statement,
-                        negative_statement: negative_statement,
-                        quality_info: quality_info,
-                        rating: rating,
-                        recommendation: recommendation,
-                        correctness: correctness,
-                        completeness: completeness,
-                        uptodate: uptodate,
-                        understandability: understandability,
-                        security: security,
-                        confident: confident,
-                        trustable: trustable,
+                        positive_statement:
+                            double.parse(posStateCtrl.text.trim()),
+                        negative_statement:
+                            double.parse(negStateCtrl.text.trim()),
+                        quality_info: double.parse(quaInfoCtrl.text.trim()),
+                        rating: double.parse(ratingCtrl.text.trim()),
+                        recommendation: double.parse(recoCtrl.text.trim()),
+                        correctness: double.parse(corrCtrl.text.trim()),
+                        completeness: double.parse(compCtrl.text.trim()),
+                        uptodate: double.parse(upToDateCtrl.text.trim()),
+                        understandability: double.parse(undCtrl.text.trim()),
+                        security: double.parse(secuCtrl.text.trim()),
+                        confident: double.parse(confCtrl.text.trim()),
+                        trustable: double.parse(trustCtrl.text.trim()),
                       );
                     },
                   ),
