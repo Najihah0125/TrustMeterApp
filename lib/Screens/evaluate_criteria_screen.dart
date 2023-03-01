@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:trustmeter/Calculations/calculation.dart';
 import 'package:trustmeter/Screens/home_screen.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 
@@ -497,30 +498,48 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
       final docSeller =
           FirebaseFirestore.instance.collection('evaluations').doc();
 
-      final json = {
-        'criteria': {
-          'positive_statement': positive_statement,
-          'negative_statement': negative_statement,
-          'quality_info': quality_info,
-          'rating': rating,
-          'recommendation': recommendation,
-          'correctness': correctness,
-          'completeness': completeness,
-          'uptodate': uptodate,
-          'understandability': understandability,
-          'security': security,
-          'confident': confident,
-          'trustable': trustable,
-        },
-        'which_seller': {
-          'seller_name': widget.sellerName,
-          'type_acc': widget.typeAcc,
-        },
-        'evaluator_id': user.uid,
-        'date_created': FieldValue.serverTimestamp(),
-      };
+      final List<double> criteria = [
+        positive_statement,
+        negative_statement,
+        quality_info,
+        rating,
+        recommendation,
+        correctness,
+        completeness,
+        uptodate,
+        understandability,
+        security,
+        confident,
+        trustable
+      ];
+      final Calculations _calculations = Calculations();
 
-      await docSeller.set(json);
+      _calculations.assignRate(criteria);
+
+      // final json = {
+      //   'criteria': {
+      //     'positive_statement': positive_statement,
+      //     'negative_statement': negative_statement,
+      //     'quality_info': quality_info,
+      //     'rating': rating,
+      //     'recommendation': recommendation,
+      //     'correctness': correctness,
+      //     'completeness': completeness,
+      //     'uptodate': uptodate,
+      //     'understandability': understandability,
+      //     'security': security,
+      //     'confident': confident,
+      //     'trustable': trustable,
+      //   },
+      //   'which_seller': {
+      //     'seller_name': widget.sellerName,
+      //     'type_acc': widget.typeAcc,
+      //   },
+      //   'evaluator_id': user.uid,
+      //   'date_created': FieldValue.serverTimestamp(),
+      // };
+
+      // await docSeller.set(json);
 
       showDialog(
           context: context,
