@@ -1,5 +1,6 @@
 import 'package:trustmeter/Screens/evaluate_criteria_screen.dart';
 import 'package:collection/collection.dart';
+import 'package:trustmeter/Screens/trust_result_screen.dart';
 
 class Calculations {
   List<String> rates = [];
@@ -326,7 +327,9 @@ class Calculations {
 
     if (foundKeyForFinalTrust != null) {
       var value = lookupFinalTrust[foundKeyForFinalTrust];
-      trustResult = value ?? 'people not valid';
+      trustResult = value ?? 'trust result not valid';
+      // pass trustResult value to TrustResultScreen
+      // TrustResultScreen(finalTrustResult: trustResult);
       print('The value for key $allCategoriesFinal is $trustResult');
     } else {
       print('Key $allCategoriesFinal not found in lookup');

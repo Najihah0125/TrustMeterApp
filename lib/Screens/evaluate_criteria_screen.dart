@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:trustmeter/Calculations/calculation.dart';
 import 'package:trustmeter/Screens/home_screen.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
+import 'package:trustmeter/Screens/trust_result_screen.dart';
 
 class EvaluateCriteria extends StatefulWidget {
   final String? sellerName;
@@ -516,30 +517,33 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
 
       _calculations.assignRate(criteria);
 
-      // final json = {
-      //   'criteria': {
-      //     'positive_statement': positive_statement,
-      //     'negative_statement': negative_statement,
-      //     'quality_info': quality_info,
-      //     'rating': rating,
-      //     'recommendation': recommendation,
-      //     'correctness': correctness,
-      //     'completeness': completeness,
-      //     'uptodate': uptodate,
-      //     'understandability': understandability,
-      //     'security': security,
-      //     'confident': confident,
-      //     'trustable': trustable,
-      //   },
-      //   'which_seller': {
-      //     'seller_name': widget.sellerName,
-      //     'type_acc': widget.typeAcc,
-      //   },
-      //   'evaluator_id': user.uid,
-      //   'date_created': FieldValue.serverTimestamp(),
-      // };
+      final result = _calculations.trustResult;
 
-      // await docSeller.set(json);
+      final json = {
+        'criteria': {
+          'positive_statement': positive_statement,
+          'negative_statement': negative_statement,
+          'quality_info': quality_info,
+          'rating': rating,
+          'recommendation': recommendation,
+          'correctness': correctness,
+          'completeness': completeness,
+          'uptodate': uptodate,
+          'understandability': understandability,
+          'security': security,
+          'confident': confident,
+          'trustable': trustable,
+        },
+        'which_seller': {
+          'seller_name': widget.sellerName,
+          'type_acc': widget.typeAcc,
+        },
+        'evaluator_id': user.uid,
+        'date_created': FieldValue.serverTimestamp(),
+        'trust_result': result,
+      };
+
+      await docSeller.set(json);
 
       showDialog(
           context: context,
@@ -557,7 +561,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
+                              builder: (context) => TrustResultScreen(
+                                  sellerName: widget.sellerName,
+                                  trustResult: result)));
                     },
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
