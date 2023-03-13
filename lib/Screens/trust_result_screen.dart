@@ -51,6 +51,10 @@ class _TrustResultScreenState extends State<TrustResultScreen> {
               height: 40,
             ),
             starsResult(),
+            SizedBox(
+              height: 40,
+            ),
+            trustworthyLevel(),
           ]),
         )));
   }
@@ -84,6 +88,67 @@ class _TrustResultScreenState extends State<TrustResultScreen> {
               color: Color.fromARGB(255, 255, 206, 9), size: 40),
           Icon(Icons.star_border,
               color: Color.fromARGB(255, 255, 206, 9), size: 40),
+        ],
+      );
+    } else {
+      return Text('invalid');
+    }
+  }
+
+  //widget to display trustworthiness level
+  Widget trustworthyLevel() {
+    if (widget.trustResult == 'high') {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.check_circle,
+            size: 30,
+            color: Colors.green,
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            'Highly Trustworthy',
+            style: TextStyle(fontSize: 22),
+          ),
+        ],
+      );
+    } else if (widget.trustResult == 'moderate') {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.warning_rounded,
+            size: 30,
+            color: Colors.orange,
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            'Partially Trustworthy',
+            style: TextStyle(fontSize: 22),
+          ),
+        ],
+      );
+    } else if (widget.trustResult == 'low') {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.cancel_rounded,
+            size: 30,
+            color: Colors.red,
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            'Not Trustworthy',
+            style: TextStyle(fontSize: 22),
+          ),
         ],
       );
     } else {
