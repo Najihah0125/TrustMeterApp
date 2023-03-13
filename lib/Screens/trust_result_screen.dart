@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:trustmeter/Screens/home_screen.dart';
 
 class TrustResultScreen extends StatefulWidget {
   final String? sellerName;
   final String trustResult;
+  final String? accountType;
   const TrustResultScreen(
-      {Key? key, required this.sellerName, required this.trustResult})
+      {Key? key,
+      required this.sellerName,
+      required this.trustResult,
+      required this.accountType})
       : super(key: key);
 
   @override
@@ -41,11 +46,20 @@ class _TrustResultScreenState extends State<TrustResultScreen> {
             SizedBox(
               height: 40,
             ),
-            Text(
-              '${widget.sellerName}',
-              style: TextStyle(
-                fontSize: 22,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                accountTypeIcon(),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  '${widget.sellerName}',
+                  style: TextStyle(
+                    fontSize: 22,
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 40,
@@ -55,8 +69,35 @@ class _TrustResultScreenState extends State<TrustResultScreen> {
               height: 40,
             ),
             trustworthyLevel(),
+            SizedBox(
+              height: 80,
+            ),
+            TextButton(
+              child: Text(
+                'Return Home',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()));
+              },
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                      Color.fromARGB(255, 43, 115, 255))),
+            ),
           ]),
         )));
+  }
+
+  //Widget method to display account type icon (instagram/facebook)
+  Widget accountTypeIcon() {
+    if (widget.accountType == 'instagram') {
+      return Image.asset('assets/Instagram.png');
+    } else if (widget.accountType == 'facebook') {
+      return Image.asset('assets/facebook.png');
+    } else {
+      return Text('invalid');
+    }
   }
 
   //widget method to create stars rating of trust result

@@ -563,7 +563,8 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                           MaterialPageRoute(
                               builder: (context) => TrustResultScreen(
                                   sellerName: widget.sellerName,
-                                  trustResult: result)));
+                                  trustResult: result,
+                                  accountType: widget.typeAcc)));
                     },
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
