@@ -73,6 +73,10 @@ class _TrustResultScreenState extends State<TrustResultScreen> {
               height: 80,
             ),
             TextButton(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                backgroundColor: Color.fromARGB(255, 43, 115, 255),
+              ),
               child: Text(
                 'Return Home',
                 style: TextStyle(color: Colors.white, fontSize: 16),
@@ -81,9 +85,6 @@ class _TrustResultScreenState extends State<TrustResultScreen> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => HomeScreen()));
               },
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 43, 115, 255))),
             ),
           ]),
         )));
