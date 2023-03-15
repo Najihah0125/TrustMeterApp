@@ -538,7 +538,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
           'seller_name': widget.sellerName,
           'type_acc': widget.typeAcc,
         },
-        'evaluator_id': user.uid,
+        'user_email': user.email,
         'date_created': FieldValue.serverTimestamp(),
         'trust_result': result,
       };
