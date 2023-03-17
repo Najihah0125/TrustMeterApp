@@ -18,20 +18,6 @@ class EvaluateCriteria extends StatefulWidget {
 }
 
 class _EvaluateCriteriaState extends State<EvaluateCriteria> {
-  // double positive_statement = 0;
-  // double negative_statement = 0;
-  // double quality_info = 0;
-  // double rating = 0;
-  // double recommendation = 0;
-  // double correctness = 0;
-  // double completeness = 0;
-  // double uptodate = 0;
-  // double understandability = 0;
-  // double security = 0;
-  // double confident = 0;
-  // double trustable = 0;
-  // String evaluator = '';
-
   final _formKey = GlobalKey<FormState>();
   final user = FirebaseAuth.instance.currentUser!;
   final posStateCtrl = TextEditingController();
