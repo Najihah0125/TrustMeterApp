@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl/intl.dart';
+import 'package:trustmeter/Screens/reevaluate_screen.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -62,7 +63,20 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                         color: Color.fromARGB(255, 0, 70, 205),
                                         decoration: TextDecoration.underline),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ReevaluateScreen(
+                                                evaluationID: item.id,
+                                                sellerName: item[
+                                                    'which_seller.seller_name'],
+                                                accountType: item[
+                                                    'which_seller.type_acc'],
+                                              )),
+                                    );
+                                  },
                                 ),
                               ],
                             )
