@@ -17,13 +17,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
   final user = FirebaseAuth.instance.currentUser!;
   final ScrollController _scrollController = ScrollController();
 
+  // Future getData() async {
+  //   var firestore = FirebaseFirestore.instance;
+  //   QuerySnapshot qn = await firestore.collection('evaluations').getDocuments();
+  //   return qn.documents;
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
+    return FutureBuilder<QuerySnapshot>(
+        future: FirebaseFirestore.instance
             .collection('evaluations')
             .where('user_email', isEqualTo: user.email)
-            .snapshots(),
+            .get(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final items = snapshot.data!.docs;
@@ -49,8 +55,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             ListTile(
                                 leading: accountTypeIcon(accType),
                                 title: Text(item['which_seller.seller_name']),
-                                subtitle: Text(DateFormat('yyyy-MM-dd hh:mm')
-                                    .format((item['date_created'] as Timestamp)
+                                subtitle: Text(DateFormat('yyyy-MM-dd').format(
+                                    (item['date_created'] as Timestamp)
                                         .toDate())),
                                 trailing: starsResult(trustResult)),
                             Row(
