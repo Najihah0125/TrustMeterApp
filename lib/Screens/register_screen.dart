@@ -39,28 +39,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
       backgroundColor: Color.fromARGB(255, 135, 176, 255),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 80,
             ),
-            Container(
-              margin: EdgeInsets.only(left: 30),
-              child: Text(
-                "Register",
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  "Register",
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  width: 135,
+                ),
+                Image.asset(
+                  'assets/logo_colour.png',
+                  scale: 30,
+                ),
+              ],
             ),
             Form(
               key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(
-                    height: 10,
-                  ),
                   Container(
-                    margin: EdgeInsets.all(30),
+                    margin: EdgeInsets.fromLTRB(30, 10, 30, 30),
                     padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                     color: Colors.white,
                     child: Column(
@@ -156,7 +166,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 30),
           ],
         ),
       ),

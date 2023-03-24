@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:trustmeter/Screens/auth_screen.dart';
 import 'package:trustmeter/Screens/home_screen.dart';
+import 'package:trustmeter/Screens/welcome_screen.dart';
 import 'Screens/utils.dart';
 
 Future main() async {

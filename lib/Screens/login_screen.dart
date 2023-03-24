@@ -39,32 +39,39 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Color.fromARGB(255, 135, 176, 255),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 80,
             ),
-            Container(
-              margin: EdgeInsets.only(left: 30),
-              child: Text(
-                "Log In",
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
+            Row(
+              children: [
+                SizedBox(
+                  width: 30,
                 ),
-              ),
+                Text(
+                  "Log In",
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  width: 160,
+                ),
+                Image.asset(
+                  'assets/logo_colour.png',
+                  scale: 30,
+                ),
+              ],
             ),
             Form(
               key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(
-                    height: 10,
-                  ),
                   Container(
                     color: Colors.white,
-                    margin: EdgeInsets.all(30),
+                    margin: EdgeInsets.fromLTRB(30, 10, 30, 30),
                     padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                     child: Column(
                       children: [
@@ -157,7 +164,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 30),
           ],
         ),
       ),
