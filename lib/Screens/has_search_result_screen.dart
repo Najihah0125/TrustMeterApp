@@ -58,13 +58,13 @@ class _HasSearchResultScreenState extends State<HasSearchResultScreen> {
             SizedBox(
               height: 40,
             ),
-            StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
+            FutureBuilder<QuerySnapshot>(
+                future: FirebaseFirestore.instance
                     .collection('evaluations')
                     .where('which_seller.seller_name',
                         isEqualTo: widget.sellerName)
                     .where('which_seller.type_acc', isEqualTo: widget.typeAcc)
-                    .snapshots(),
+                    .get(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final items = snapshot.data!.docs;
@@ -87,7 +87,7 @@ class _HasSearchResultScreenState extends State<HasSearchResultScreen> {
                                 shortEmail.length - 1,
                                 '*' * (shortEmail.length - 2));
                             //get trust result in string
-                            String trustResult = items.last.get('trust_result');
+                            String trustResult = item['trust_result'];
                             return Container(
                               margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
                               child: Card(
