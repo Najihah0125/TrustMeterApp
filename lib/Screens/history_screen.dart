@@ -17,12 +17,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
   final user = FirebaseAuth.instance.currentUser!;
   final ScrollController _scrollController = ScrollController();
 
-  // Future getData() async {
-  //   var firestore = FirebaseFirestore.instance;
-  //   QuerySnapshot qn = await firestore.collection('evaluations').getDocuments();
-  //   return qn.documents;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<QuerySnapshot>(
@@ -50,6 +44,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   return Container(
                       margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                       child: Card(
+                        shadowColor: Colors.grey,
                         child: Column(
                           children: <Widget>[
                             ListTile(

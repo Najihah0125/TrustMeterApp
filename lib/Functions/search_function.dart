@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:trustmeter/Screens/add_seller_screen.dart';
 import 'package:trustmeter/Screens/has_search_result_screen.dart';
 import 'package:trustmeter/Screens/no_search_result_screen.dart';
@@ -33,26 +34,46 @@ class _SearchFunctionState extends State<SearchFunction> {
             child: Column(
               children: <Widget>[
                 Container(
-                  margin: const EdgeInsets.only(top: 50),
-                  padding: const EdgeInsets.only(left: 20),
-                  width: size.width,
-                  child: const Text(
-                    "Search seller's trustworthiness result",
-                    style: TextStyle(fontSize: 21),
+                  margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
+                  alignment: AlignmentDirectional.topStart,
+                  child: Text(
+                    'Welcome!',
+                    style: GoogleFonts.leagueSpartan(
+                        fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 20),
+                  margin: EdgeInsets.fromLTRB(20, 0, 20, 40),
+                  alignment: AlignmentDirectional.topStart,
+                  child: Text(
+                    "Find out what other people are saying about your seller before you buy",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  width: size.width,
+                  child: Text(
+                    "Search seller's trustworthiness result",
+                    style: GoogleFonts.leagueSpartan(
+                        fontSize: 28, fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 15),
                   padding:
                       const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                   width: size.width * 0.9,
                   height: size.height * 0.45,
-                  decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        offset: const Offset(0, 4),
-                        blurRadius: 4)
-                  ]),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(1),
+                            offset: const Offset(0, 3),
+                            blurRadius: 4)
+                      ]),
                   child: Form(
                     key: formKey,
                     child: Column(
@@ -61,7 +82,7 @@ class _SearchFunctionState extends State<SearchFunction> {
                           margin: const EdgeInsets.only(bottom: 5),
                           child: Row(
                             children: const <Widget>[
-                              Text("Type of account",
+                              Text("Type of seller's account",
                                   style: TextStyle(fontSize: 16)),
                               Text(" *",
                                   style: TextStyle(
@@ -98,7 +119,7 @@ class _SearchFunctionState extends State<SearchFunction> {
                           margin: const EdgeInsets.only(bottom: 10),
                           child: Row(
                             children: const <Widget>[
-                              Text("Name of account",
+                              Text("Name of seller's account",
                                   style: TextStyle(fontSize: 16)),
                               Text(" *",
                                   style: TextStyle(
@@ -124,6 +145,10 @@ class _SearchFunctionState extends State<SearchFunction> {
                                     selectedValue = value;
                                   });
                                 },
+                                searchFieldProps: TextFieldProps(
+                                    decoration: InputDecoration(
+                                  hintText: "Search seller's name",
+                                )),
                                 //if seller does not exists
                                 emptyBuilder: (context, searchEntry) => Center(
                                         child: RichText(
