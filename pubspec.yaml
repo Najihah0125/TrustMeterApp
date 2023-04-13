@@ -43,6 +43,8 @@ dependencies:
   email_validator: ^2.1.17
   number_inc_dec: ^0.8.0
   collection: ^1.16.0
+  lottie: ^1.4.2
+  google_fonts: ^4.0.3
 
 dev_dependencies:
   flutter_test:
