@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:trustmeter/Screens/home_screen.dart';
 
 class TrustResultScreen extends StatefulWidget {
@@ -39,9 +40,8 @@ class _TrustResultScreenState extends State<TrustResultScreen> {
             ),
             Text(
               "Trustworthiness Result:",
-              style: TextStyle(
-                fontSize: 24,
-              ),
+              style: GoogleFonts.leagueSpartan(
+                  fontSize: 28, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               height: 40,

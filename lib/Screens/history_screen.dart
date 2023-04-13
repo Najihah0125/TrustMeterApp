@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:trustmeter/Screens/reevaluate_screen.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -27,66 +29,91 @@ class _HistoryScreenState extends State<HistoryScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final items = snapshot.data!.docs;
-            return Scrollbar(
-              isAlwaysShown: true,
-              thickness: 5,
-              controller: _scrollController,
-              child: ListView.builder(
+            //check whether items is empty
+            if (items.isEmpty) {
+              return Center(
+                child: Column(
+                  children: [
+                    Container(
+                      width: 300,
+                      height: 300,
+                      child: Lottie.asset(
+                        'assets/no_history.json',
+                      ),
+                    ),
+                    Text(
+                      'No evaluation has been made',
+                      style: GoogleFonts.leagueSpartan(
+                          fontSize: 20, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+              );
+              // return list of evaluation made by the user
+            } else {
+              return Scrollbar(
+                isAlwaysShown: true,
+                thickness: 5,
                 controller: _scrollController,
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  final item = items[index];
-                  //get account type
-                  String accType = item['which_seller.type_acc'];
-                  //get trust result in string
-                  String trustResult = item['trust_result'];
+                child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    final item = items[index];
+                    //get account type
+                    String accType = item['which_seller.type_acc'];
+                    //get trust result in string
+                    String trustResult = item['trust_result'];
 
-                  return Container(
-                      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                      child: Card(
-                        shadowColor: Colors.grey,
-                        child: Column(
-                          children: <Widget>[
-                            ListTile(
-                                leading: accountTypeIcon(accType),
-                                title: Text(item['which_seller.seller_name']),
-                                subtitle: Text(DateFormat('yyyy-MM-dd').format(
-                                    (item['date_created'] as Timestamp)
-                                        .toDate())),
-                                trailing: starsResult(trustResult)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                TextButton(
-                                  child: Text(
-                                    'Re-evaluate',
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 70, 205),
-                                        decoration: TextDecoration.underline),
+                    return Container(
+                        margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        child: Card(
+                          shadowColor: Colors.grey,
+                          child: Column(
+                            children: <Widget>[
+                              ListTile(
+                                  leading: accountTypeIcon(accType),
+                                  title: Text(item['which_seller.seller_name']),
+                                  subtitle: Text(DateFormat('yyyy-MM-dd')
+                                      .format(
+                                          (item['date_created'] as Timestamp)
+                                              .toDate())),
+                                  trailing: starsResult(trustResult)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  TextButton(
+                                    child: Text(
+                                      'Re-evaluate',
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 0, 70, 205),
+                                          decoration: TextDecoration.underline),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ReevaluateScreen(
+                                                  evaluationID: item.id,
+                                                  sellerName: item[
+                                                      'which_seller.seller_name'],
+                                                  accountType: item[
+                                                      'which_seller.type_acc'],
+                                                )),
+                                      );
+                                    },
                                   ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ReevaluateScreen(
-                                                evaluationID: item.id,
-                                                sellerName: item[
-                                                    'which_seller.seller_name'],
-                                                accountType: item[
-                                                    'which_seller.type_acc'],
-                                              )),
-                                    );
-                                  },
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ));
-                },
-              ),
-            );
+                                ],
+                              )
+                            ],
+                          ),
+                        ));
+                  },
+                ),
+              );
+            }
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
