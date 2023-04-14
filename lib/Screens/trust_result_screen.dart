@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trustmeter/Screens/home_screen.dart';
 
@@ -22,8 +20,6 @@ class TrustResultScreen extends StatefulWidget {
 class _TrustResultScreenState extends State<TrustResultScreen> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 135, 176, 255),

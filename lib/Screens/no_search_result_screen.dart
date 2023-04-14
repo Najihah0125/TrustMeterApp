@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:trustmeter/Screens/add_seller_screen.dart';
 import 'package:trustmeter/Screens/evaluate_criteria_screen.dart';
 
 class NoSearchResultScreen extends StatefulWidget {

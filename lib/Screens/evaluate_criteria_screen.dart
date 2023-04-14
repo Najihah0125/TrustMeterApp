@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trustmeter/Calculations/calculation.dart';
-import 'package:trustmeter/Screens/home_screen.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:trustmeter/Screens/trust_result_screen.dart';
 

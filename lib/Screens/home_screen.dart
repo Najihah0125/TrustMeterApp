@@ -26,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 135, 176, 255),

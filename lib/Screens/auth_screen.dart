@@ -1,4 +1,3 @@
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:trustmeter/Screens/login_screen.dart';
 import 'package:trustmeter/Screens/register_screen.dart';

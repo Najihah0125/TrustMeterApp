@@ -1,6 +1,4 @@
-import 'package:trustmeter/Screens/evaluate_criteria_screen.dart';
 import 'package:collection/collection.dart';
-import 'package:trustmeter/Screens/trust_result_screen.dart';
 
 class Calculations {
   List<String> rates = [];
@@ -34,7 +32,6 @@ class Calculations {
     scc = rates.sublist(3, 5);
     iq = rates.sublist(5, 9);
     people = rates.sublist(9, 12);
-    print(rates);
 
     finalRateFourCategories();
   }
@@ -180,9 +177,8 @@ class Calculations {
     if (foundKeyForEwom != null) {
       var value = lookupThreeElements[foundKeyForEwom];
       ewomFinal = value ?? 'ewom invalid';
-      print('The value for key $ewom is $ewomFinal');
     } else {
-      print('Key $ewom not found in lookup');
+      ewomFinal = 'not found in lookup';
     }
 
     //matching scc with lookup
@@ -194,9 +190,8 @@ class Calculations {
     if (foundKeyForScc != null) {
       var value = lookupTwoElements[foundKeyForScc];
       sccFinal = value ?? 'scc invalid';
-      print('The value for key $scc is $sccFinal');
     } else {
-      print('Key $scc not found in lookup');
+      sccFinal = 'Key $scc not found in lookup';
     }
 
     //matching iq with lookup
@@ -208,9 +203,8 @@ class Calculations {
     if (foundKeyForIq != null) {
       var value = lookupFourElements[foundKeyForIq];
       iqFinal = value ?? 'iq not valid';
-      print('The value for key $iq is $iqFinal');
     } else {
-      print('Key $iq not found in lookup');
+      iqFinal = 'Key $iq not found in lookup';
     }
 
     //matching people with lookup
@@ -222,13 +216,11 @@ class Calculations {
     if (foundKeyForPeople != null) {
       var value = lookupThreeElements[foundKeyForPeople];
       peopleFinal = value ?? 'people not valid';
-      print('The value for key $people is $peopleFinal');
     } else {
-      print('Key $people not found in lookup');
+      peopleFinal = 'Key $people not found in lookup';
     }
 
     allCategoriesFinal = [ewomFinal, sccFinal, iqFinal, peopleFinal];
-    print('allcategoriesfinal: $allCategoriesFinal');
     finalTrust();
   }
 
@@ -329,10 +321,6 @@ class Calculations {
       var value = lookupFinalTrust[foundKeyForFinalTrust];
       trustResult = value ?? 'trust result not valid';
       // pass trustResult value to TrustResultScreen
-      // TrustResultScreen(finalTrustResult: trustResult);
-      print('The value for key $allCategoriesFinal is $trustResult');
-    } else {
-      print('Key $allCategoriesFinal not found in lookup');
-    }
+    } else {}
   }
 }
