@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:trustmeter/Screens/reevaluate_screen.dart';
+import 'package:collection/collection.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -14,11 +15,14 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  //get current logged in user
   final user = FirebaseAuth.instance.currentUser!;
+  //scroll feature
   final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    //get the user's evaluations in Future
     return FutureBuilder<QuerySnapshot>(
         future: FirebaseFirestore.instance
             .collection('evaluations')
@@ -26,8 +30,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
             .get(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            //get all data from the document
             final items = snapshot.data!.docs;
-            //check whether items is empty
+            // Sort the items by date_created
+            items.sort((a, b) => (b['date_created'] as Timestamp)
+                .compareTo(a['date_created'] as Timestamp));
+            //if user never make an evaluations
             if (items.isEmpty) {
               return Center(
                 child: Column(
@@ -47,7 +55,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   ],
                 ),
               );
-              // return list of evaluation made by the user
+              // if user has made evaluation
             } else {
               return Scrollbar(
                 isAlwaysShown: true,
@@ -62,7 +70,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     String accType = item['which_seller.type_acc'];
                     //get trust result in string
                     String trustResult = item['trust_result'];
-
                     return Container(
                         margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                         child: Card(
