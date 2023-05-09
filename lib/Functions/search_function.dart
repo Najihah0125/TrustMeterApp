@@ -55,7 +55,7 @@ class _SearchFunctionState extends State<SearchFunction> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                   width: size.width * 0.9,
-                  height: size.height * 0.45,
+                  height: size.height * 0.5,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(15),

@@ -2,15 +2,16 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:trustmeter/Screens/login_screen.dart';
 import 'package:trustmeter/Screens/utils.dart';
 import 'package:trustmeter/main.dart';
 
 class RegisterScreen extends StatefulWidget {
-  final Function() onClickedLogIn;
+  // final Function() onClickedLogIn;
 
   const RegisterScreen({
     Key? key,
-    required this.onClickedLogIn,
+    // required this.onClickedLogIn,
   }) : super(key: key);
 
   @override
@@ -153,7 +154,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           children: [
                         TextSpan(
                             recognizer: TapGestureRecognizer()
-                              ..onTap = widget.onClickedLogIn,
+                              ..onTap = () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginScreen(),
+                                  ),
+                                );
+                              },
                             text: 'Log In',
                             style: TextStyle(
                               decoration: TextDecoration.underline,
