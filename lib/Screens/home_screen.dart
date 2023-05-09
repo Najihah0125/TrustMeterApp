@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         actions: <Widget>[
           TextButton.icon(
-            onPressed: () => FirebaseAuth.instance.signOut(),
+            onPressed: () async => await FirebaseAuth.instance.signOut(),
             icon: const Icon(
               Icons.logout,
               size: 24.0,

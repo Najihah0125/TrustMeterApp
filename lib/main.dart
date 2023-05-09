@@ -8,6 +8,7 @@ import 'Screens/utils.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await Future.delayed(Duration(seconds: 2));
   runApp(MyApp());
 }
 

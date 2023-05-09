@@ -31,34 +31,27 @@ class _SearchFunctionState extends State<SearchFunction> {
           return SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
-                  alignment: AlignmentDirectional.topStart,
-                  child: Text(
-                    'Welcome!',
-                    style: GoogleFonts.leagueSpartan(
-                        fontSize: 30, fontWeight: FontWeight.w600),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(20, 0, 20, 40),
-                  alignment: AlignmentDirectional.topStart,
-                  child: Text(
-                    "Find out what other people are saying about your seller before you buy",
-                    style: TextStyle(fontSize: 16),
-                  ),
+                SizedBox(
+                  height: 30,
                 ),
                 Container(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   width: size.width,
                   child: Text(
-                    "Search seller's trustworthiness result",
+                    "Search seller",
                     style: GoogleFonts.leagueSpartan(
-                        fontSize: 28, fontWeight: FontWeight.w500),
+                        fontSize: 25, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 15),
+                  margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                  alignment: AlignmentDirectional.topStart,
+                  child: Text(
+                    "Find out what other people are saying about the seller before you buy",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                   width: size.width * 0.9,
@@ -80,7 +73,7 @@ class _SearchFunctionState extends State<SearchFunction> {
                           margin: const EdgeInsets.only(bottom: 5),
                           child: Row(
                             children: const <Widget>[
-                              Text("Type of seller's account",
+                              Text("Seller's account type",
                                   style: TextStyle(fontSize: 16)),
                               Text(" *",
                                   style: TextStyle(
@@ -117,7 +110,7 @@ class _SearchFunctionState extends State<SearchFunction> {
                           margin: const EdgeInsets.only(bottom: 10),
                           child: Row(
                             children: const <Widget>[
-                              Text("Name of seller's account",
+                              Text("Seller's account name",
                                   style: TextStyle(fontSize: 16)),
                               Text(" *",
                                   style: TextStyle(

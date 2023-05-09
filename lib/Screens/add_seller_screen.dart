@@ -36,15 +36,17 @@ class _AddSellerState extends State<AddSeller> {
               appBar: AppBar(
                 backgroundColor: const Color.fromARGB(255, 135, 176, 255),
                 title: const Text(
-                  "Evaluate Seller",
+                  "Add New Seller",
                   style: TextStyle(fontSize: 24, color: Colors.black),
                 ),
               ),
               body: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
+                    SizedBox(
+                      height: 30,
+                    ),
                     Container(
-                      margin: const EdgeInsets.only(top: 30),
                       padding: EdgeInsets.only(left: 30),
                       width: size.width,
                       child: Text(
@@ -64,7 +66,7 @@ class _AddSellerState extends State<AddSeller> {
                             Row(
                               children: [
                                 Text(
-                                  "i. Name of account",
+                                  "Seller's account name",
                                   style: TextStyle(fontSize: 16),
                                 ),
                                 Text(
@@ -77,27 +79,26 @@ class _AddSellerState extends State<AddSeller> {
                             Container(
                               margin: const EdgeInsets.fromLTRB(0, 10, 0, 25),
                               child: TextFormField(
-                                  decoration: InputDecoration(
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.black),
-                                    ),
+                                decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black),
                                   ),
-                                  controller: sellerController,
-                                  textInputAction: TextInputAction.next,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  validator: (value) {
-                                    if (value == null) {
-                                      return 'Enter an account name';
-                                    }
-
-                                    return null;
-                                  }),
+                                ),
+                                controller: sellerController,
+                                textInputAction: TextInputAction.next,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if (value == null || value.trim().isEmpty) {
+                                    return 'Enter an account name';
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
                             Row(children: [
                               Text(
-                                "ii. Type of account",
+                                "Seller's account type",
                                 style: TextStyle(fontSize: 16),
                               ),
                               Text(
@@ -130,8 +131,10 @@ class _AddSellerState extends State<AddSeller> {
                                 const Expanded(child: Text("Facebook")),
                               ],
                             ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Container(
-                              margin: const EdgeInsets.only(top: 20),
                               child: TextButton(
                                 child: Container(
                                   color:
@@ -139,7 +142,7 @@ class _AddSellerState extends State<AddSeller> {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 13, horizontal: 20),
                                   child: const Text(
-                                    'Add New Seller',
+                                    'Add Seller',
                                     style: TextStyle(
                                         fontSize: 16.0, color: Colors.white),
                                   ),
@@ -149,6 +152,46 @@ class _AddSellerState extends State<AddSeller> {
                                     seller_name: sellerController.text,
                                     typeOfAcc: _typeOfAcc?.name.toString(),
                                   );
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            Text(
+                                'To evaluate this seller, click the button below'),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              child: TextButton(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                          width: 2,
+                                          color: Color.fromARGB(
+                                              255, 43, 115, 255))),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 13, horizontal: 20),
+                                  child: const Text(
+                                    'Evaluate Seller',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color:
+                                            Color.fromARGB(255, 43, 115, 255)),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EvaluateCriteria(
+                                                  sellerName:
+                                                      sellerController.text,
+                                                  typeAcc: _typeOfAcc?.name
+                                                      .toString())));
                                 },
                               ),
                             ),
@@ -174,16 +217,26 @@ class _AddSellerState extends State<AddSeller> {
     required String seller_name,
     required String? typeOfAcc,
   }) async {
+    //check whether form valid or not
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
+    print(sellerController.text);
 
+    //convert seller_name to lowercase and remove whitespaces for easy query
+    String lowercase_seller_name = seller_name.toLowerCase();
+    String queryable_seller_name = lowercase_seller_name.replaceAll(' ', '');
+
+    //read documents inside sellers collection
     final docSeller = FirebaseFirestore.instance.collection('sellers').doc();
+
+    //get the information of the seller if the seller exist in database
     final querySnapshot = FirebaseFirestore.instance
         .collection('sellers')
-        .where('seller_name', isEqualTo: seller_name)
+        .where('queryable_seller_name', isEqualTo: queryable_seller_name)
         .where('account_type', isEqualTo: typeOfAcc);
 
     querySnapshot.get().then((querySnapshot) async {
+      //if the seller already exist in database - display alert
       if (querySnapshot.docs.isNotEmpty) {
         showDialog(
             context: context,
@@ -207,10 +260,13 @@ class _AddSellerState extends State<AddSeller> {
                   ],
                 ));
       } else {
+        //if the seller not exist - new seller -> insert into database
         final json = {
           'seller_name': seller_name,
+          'queryable_seller_name': queryable_seller_name,
           'account_type': typeOfAcc,
         };
+        //insert query
         await docSeller.set(json);
         showDialog(
             context: context,
@@ -225,12 +281,13 @@ class _AddSellerState extends State<AddSeller> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EvaluateCriteria(
-                                    sellerName: seller_name,
-                                    typeAcc: typeOfAcc)));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => EvaluateCriteria(
+                        //             sellerName: seller_name,
+                        //             typeAcc: typeOfAcc)));
+                        Navigator.pop(context);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
