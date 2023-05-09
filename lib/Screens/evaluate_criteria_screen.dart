@@ -18,7 +18,9 @@ class EvaluateCriteria extends StatefulWidget {
 
 class _EvaluateCriteriaState extends State<EvaluateCriteria> {
   final _formKey = GlobalKey<FormState>();
+  //get current user id
   final user = FirebaseAuth.instance.currentUser!;
+  //controllers to hold number rated for each criteria
   final posStateCtrl = TextEditingController();
   final negStateCtrl = TextEditingController();
   final quaInfoCtrl = TextEditingController();
@@ -34,6 +36,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
 
   @override
   void dispose() {
+    //dispose the value for next evaluation
     posStateCtrl.dispose();
     negStateCtrl.dispose();
     quaInfoCtrl.dispose();
@@ -51,6 +54,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
 
   @override
   Widget build(BuildContext context) {
+    //screen size
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -64,22 +68,14 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              margin: const EdgeInsets.fromLTRB(30, 30, 30, 10),
-              width: size.width,
-              child: Text(
-                "Criteria of Seller",
-                style: TextStyle(
-                  fontSize: 18,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
+            SizedBox(
+              height: 30,
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
               width: size.width,
               child: Text(
-                "Score scale: 1 - Poor, 10 - Excellent",
+                "Please rate the trustworthiness of the seller based on the scale provided\n\nScore scale: 1 - Poor, 10 - Excellent",
                 style: TextStyle(
                   fontSize: 14,
                 ),
@@ -93,7 +89,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
                     child: Text(
-                      "i. Does the shop contains positive statement from other customers?",
+                      "1. Does the shop contains positive statement from other customers?",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -121,7 +117,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
                     child: Text(
-                      "ii. Does the shop contains no/little negative statement from othe customers?",
+                      "2. Does the shop contains no/little negative statement from othe customers?",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -149,7 +145,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
                     child: Text(
-                      "iii.  Does the quality of information shared by other customers helps you in making purchase decision?",
+                      "3.  Does the quality of information shared by other customers helps you in making purchase decision?",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -177,7 +173,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
                     child: Text(
-                      "iv. Does the rating given by other customers reliable?",
+                      "4. Does the rating given by other customers reliable?",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -205,7 +201,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
                     child: Text(
-                      "v. Does the recommendation from other customers reliable?",
+                      "5. Does the recommendation from other customers reliable?",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -233,7 +229,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
                     child: Text(
-                      "vi. Does the information posted by the seller is correct?",
+                      "6. Does the information posted by the seller is correct?",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -261,7 +257,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
                     child: Text(
-                      "vii. Does the information posted by the seller complete?",
+                      "7. Does the information posted by the seller complete?",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -289,7 +285,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
                     child: Text(
-                      "viii. Does the information posted by the seller up to date?",
+                      "8. Does the information posted by the seller up to date?",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -317,7 +313,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
                     child: Text(
-                      "ix. Does the information posted by the seller easy to understand?",
+                      "9. Does the information posted by the seller easy to understand?",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -345,7 +341,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
                     child: Text(
-                      "x. Does the transaction and payment secure?",
+                      "10. Does the transaction and payment secure?",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -373,7 +369,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
                     child: Text(
-                      "xi. You are confident that the seller is reliable.",
+                      "11. You are confident that the seller is reliable.",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -401,7 +397,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
                     child: Text(
-                      "xii. You believe that the seller is trustable.",
+                      "12. You believe that the seller is trustable.",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -484,6 +480,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
       final docSeller =
           FirebaseFirestore.instance.collection('evaluations').doc();
 
+      //put all criteria in a list
       final List<double> criteria = [
         positive_statement,
         negative_statement,
@@ -498,10 +495,11 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
         confident,
         trustable
       ];
+      //pass the list of criteria to Calculations to calculate trustworthiness of seller
       final Calculations _calculations = Calculations();
-
+      //assign the ratings (low, moderate, high) to each criteria
       _calculations.assignRate(criteria);
-
+      //trustworthiness result
       final result = _calculations.trustResult;
 
       final json = {
@@ -527,9 +525,9 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
         'date_created': FieldValue.serverTimestamp(),
         'trust_result': result,
       };
-
+      //insert query
       await docSeller.set(json);
-
+      //successful insert data
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -558,6 +556,7 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                 ],
               ));
     } else {
+      //failed insert data
       showDialog(
           context: context,
           barrierDismissible: false,
