@@ -24,6 +24,11 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Future<void> _logout() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.popUntil(context, ModalRoute.withName("/"));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         actions: <Widget>[
           TextButton.icon(
-            onPressed: () async => await FirebaseAuth.instance.signOut(),
+            onPressed: () {
+              _logout();
+            },
             icon: const Icon(
               Icons.logout,
               size: 24.0,
