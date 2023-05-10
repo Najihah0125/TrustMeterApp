@@ -70,22 +70,14 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              margin: const EdgeInsets.fromLTRB(30, 30, 30, 10),
-              width: size.width,
-              child: Text(
-                "Criteria of Seller",
-                style: TextStyle(
-                  fontSize: 18,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
+            SizedBox(
+              height: 30,
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
               width: size.width,
               child: Text(
-                "Score scale: 1 - Poor, 10 - Excellent",
+                "Please rate the trustworthiness of the seller based on the scale provided\n\nScore scale: 1 - Poor, 10 - Excellent",
                 style: TextStyle(
                   fontSize: 14,
                 ),
