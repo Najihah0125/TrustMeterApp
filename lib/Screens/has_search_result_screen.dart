@@ -65,7 +65,11 @@ class _HasSearchResultScreenState extends State<HasSearchResultScreen> {
                     .get(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+                    //get all data from the document
                     final items = snapshot.data!.docs;
+                    // Sort the items by date_created
+                    items.sort((a, b) => (b['date_created'] as Timestamp)
+                        .compareTo(a['date_created'] as Timestamp));
                     return SizedBox(
                       height: 300,
                       child: Scrollbar(
@@ -77,7 +81,7 @@ class _HasSearchResultScreenState extends State<HasSearchResultScreen> {
                           itemCount: items.length,
                           itemBuilder: (context, index) {
                             final item = items[index];
-                            //change user email format
+                            //encrypt user email format
                             String userEmail = item['user_email'];
                             String shortEmail = userEmail.split('@')[0];
                             String encryptEmail = shortEmail.replaceRange(
