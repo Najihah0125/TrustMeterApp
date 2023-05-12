@@ -16,6 +16,7 @@ class _AddSellerState extends State<AddSeller> {
   String selectedValue = '';
   final formKey = GlobalKey<FormState>();
   final sellerController = TextEditingController();
+  bool isSuccessful = false;
 
   @override
   void dispose() {
@@ -158,43 +159,11 @@ class _AddSellerState extends State<AddSeller> {
                             SizedBox(
                               height: 50,
                             ),
-                            Text(
-                                'To evaluate this seller, click the button below'),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Container(
-                              child: TextButton(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(
-                                          width: 2,
-                                          color: Color.fromARGB(
-                                              255, 43, 115, 255))),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 13, horizontal: 20),
-                                  child: const Text(
-                                    'Evaluate Seller',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color:
-                                            Color.fromARGB(255, 43, 115, 255)),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              EvaluateCriteria(
-                                                  sellerName:
-                                                      sellerController.text,
-                                                  typeAcc: _typeOfAcc?.name
-                                                      .toString())));
-                                },
-                              ),
-                            ),
+                            if (isSuccessful) ...[
+                              buttonLabel(),
+                              evaluateButton(),
+                            ] else
+                              ...[],
                           ],
                         ),
                       ),
@@ -211,6 +180,38 @@ class _AddSellerState extends State<AddSeller> {
           }
           return Text('Error');
         });
+  }
+
+  Widget buttonLabel() {
+    return Text('To evaluate this seller, click the button below');
+  }
+
+  Widget evaluateButton() {
+    return Container(
+      child: TextButton(
+        child: Container(
+          margin: EdgeInsets.only(top: 5),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                  width: 2, color: Color.fromARGB(255, 43, 115, 255))),
+          padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 20),
+          child: const Text(
+            'Evaluate Seller',
+            style: TextStyle(
+                fontSize: 16.0, color: Color.fromARGB(255, 43, 115, 255)),
+          ),
+        ),
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => EvaluateCriteria(
+                      sellerName: sellerController.text,
+                      typeAcc: _typeOfAcc?.name.toString())));
+        },
+      ),
+    );
   }
 
   Future addSeller({
@@ -261,6 +262,8 @@ class _AddSellerState extends State<AddSeller> {
                 ));
       } else {
         //if the seller not exist - new seller -> insert into database
+        isSuccessful = true;
+
         final json = {
           'seller_name': seller_name,
           'queryable_seller_name': queryable_seller_name,
@@ -281,12 +284,6 @@ class _AddSellerState extends State<AddSeller> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => EvaluateCriteria(
-                        //             sellerName: seller_name,
-                        //             typeAcc: typeOfAcc)));
                         Navigator.pop(context);
                       },
                       style: ButtonStyle(
