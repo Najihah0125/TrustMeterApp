@@ -96,23 +96,26 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
-                    width: size.width * 0.6,
-                    child: NumberInputPrefabbed.squaredButtons(
-                        controller: posStateCtrl,
-                        buttonArrangement: ButtonArrangement.incRightDecLeft,
-                        incDecBgColor: Color.fromARGB(255, 135, 176, 255),
-                        min: 1,
-                        max: 10,
-                        initialValue: 0,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (value) {
-                          if (value == null || double.parse(value) == 0) {
-                            return 'Value cannot be 0';
-                          }
-                          return null;
-                        }),
-                  ),
+                      margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
+                      width: size.width * 0.6,
+                      child: NumberInputPrefabbed.squaredButtons(
+                          controller: posStateCtrl,
+                          buttonArrangement: ButtonArrangement.incRightDecLeft,
+                          incDecBgColor: Color.fromARGB(255, 135, 176, 255),
+                          min: 1,
+                          max: 10,
+                          initialValue: 0,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Value is empty';
+                            } else if (double.parse(value) == 0) {
+                              return 'Value cannot be 0';
+                            } else if (double.parse(value) > 10) {
+                              return 'Value cannot more than 10';
+                            }
+                            return null;
+                          })),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                     width: size.width,
@@ -135,8 +138,12 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                         initialValue: 0,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value == null || double.parse(value) == 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Value is empty';
+                          } else if (double.parse(value) == 0) {
                             return 'Value cannot be 0';
+                          } else if (double.parse(value) > 10) {
+                            return 'Value cannot more than 10';
                           }
                           return null;
                         }),
@@ -163,8 +170,12 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                         initialValue: 0,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value == null || double.parse(value) == 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Value is empty';
+                          } else if (double.parse(value) == 0) {
                             return 'Value cannot be 0';
+                          } else if (double.parse(value) > 10) {
+                            return 'Value cannot more than 10';
                           }
                           return null;
                         }),
@@ -191,8 +202,12 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                         initialValue: 0,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value == null || double.parse(value) == 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Value is empty';
+                          } else if (double.parse(value) == 0) {
                             return 'Value cannot be 0';
+                          } else if (double.parse(value) > 10) {
+                            return 'Value cannot more than 10';
                           }
                           return null;
                         }),
@@ -219,8 +234,12 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                         initialValue: 0,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value == null || double.parse(value) == 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Value is empty';
+                          } else if (double.parse(value) == 0) {
                             return 'Value cannot be 0';
+                          } else if (double.parse(value) > 10) {
+                            return 'Value cannot more than 10';
                           }
                           return null;
                         }),
@@ -247,8 +266,12 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                         initialValue: 0,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value == null || double.parse(value) == 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Value is empty';
+                          } else if (double.parse(value) == 0) {
                             return 'Value cannot be 0';
+                          } else if (double.parse(value) > 10) {
+                            return 'Value cannot more than 10';
                           }
                           return null;
                         }),
@@ -275,8 +298,12 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                         initialValue: 0,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value == null || double.parse(value) == 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Value is empty';
+                          } else if (double.parse(value) == 0) {
                             return 'Value cannot be 0';
+                          } else if (double.parse(value) > 10) {
+                            return 'Value cannot more than 10';
                           }
                           return null;
                         }),
@@ -303,8 +330,12 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                         initialValue: 0,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value == null || double.parse(value) == 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Value is empty';
+                          } else if (double.parse(value) == 0) {
                             return 'Value cannot be 0';
+                          } else if (double.parse(value) > 10) {
+                            return 'Value cannot more than 10';
                           }
                           return null;
                         }),
@@ -331,8 +362,12 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                         initialValue: 0,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value == null || double.parse(value) == 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Value is empty';
+                          } else if (double.parse(value) == 0) {
                             return 'Value cannot be 0';
+                          } else if (double.parse(value) > 10) {
+                            return 'Value cannot more than 10';
                           }
                           return null;
                         }),
@@ -359,8 +394,12 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                         initialValue: 0,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value == null || double.parse(value) == 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Value is empty';
+                          } else if (double.parse(value) == 0) {
                             return 'Value cannot be 0';
+                          } else if (double.parse(value) > 10) {
+                            return 'Value cannot more than 10';
                           }
                           return null;
                         }),
@@ -387,8 +426,12 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                         initialValue: 0,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value == null || double.parse(value) == 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Value is empty';
+                          } else if (double.parse(value) == 0) {
                             return 'Value cannot be 0';
+                          } else if (double.parse(value) > 10) {
+                            return 'Value cannot more than 10';
                           }
                           return null;
                         }),
@@ -415,8 +458,12 @@ class _EvaluateCriteriaState extends State<EvaluateCriteria> {
                         initialValue: 0,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value == null || double.parse(value) == 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Value is empty';
+                          } else if (double.parse(value) == 0) {
                             return 'Value cannot be 0';
+                          } else if (double.parse(value) > 10) {
+                            return 'Value cannot more than 10';
                           }
                           return null;
                         }),

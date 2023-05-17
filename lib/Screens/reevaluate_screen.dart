@@ -120,8 +120,12 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (value == null || double.parse(value) == 0) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Value is empty';
+                                } else if (double.parse(value) == 0) {
                                   return 'Value cannot be 0';
+                                } else if (double.parse(value) > 10) {
+                                  return 'Value cannot more than 10';
                                 }
                                 return null;
                               }),
@@ -150,8 +154,12 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (value == null || double.parse(value) == 0) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Value is empty';
+                                } else if (double.parse(value) == 0) {
                                   return 'Value cannot be 0';
+                                } else if (double.parse(value) > 10) {
+                                  return 'Value cannot more than 10';
                                 }
                                 return null;
                               }),
@@ -180,8 +188,12 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (value == null || double.parse(value) == 0) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Value is empty';
+                                } else if (double.parse(value) == 0) {
                                   return 'Value cannot be 0';
+                                } else if (double.parse(value) > 10) {
+                                  return 'Value cannot more than 10';
                                 }
                                 return null;
                               }),
@@ -210,8 +222,12 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (value == null || double.parse(value) == 0) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Value is empty';
+                                } else if (double.parse(value) == 0) {
                                   return 'Value cannot be 0';
+                                } else if (double.parse(value) > 10) {
+                                  return 'Value cannot more than 10';
                                 }
                                 return null;
                               }),
@@ -240,8 +256,12 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (value == null || double.parse(value) == 0) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Value is empty';
+                                } else if (double.parse(value) == 0) {
                                   return 'Value cannot be 0';
+                                } else if (double.parse(value) > 10) {
+                                  return 'Value cannot more than 10';
                                 }
                                 return null;
                               }),
@@ -270,8 +290,12 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (value == null || double.parse(value) == 0) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Value is empty';
+                                } else if (double.parse(value) == 0) {
                                   return 'Value cannot be 0';
+                                } else if (double.parse(value) > 10) {
+                                  return 'Value cannot more than 10';
                                 }
                                 return null;
                               }),
@@ -300,8 +324,12 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (value == null || double.parse(value) == 0) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Value is empty';
+                                } else if (double.parse(value) == 0) {
                                   return 'Value cannot be 0';
+                                } else if (double.parse(value) > 10) {
+                                  return 'Value cannot more than 10';
                                 }
                                 return null;
                               }),
@@ -330,8 +358,12 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (value == null || double.parse(value) == 0) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Value is empty';
+                                } else if (double.parse(value) == 0) {
                                   return 'Value cannot be 0';
+                                } else if (double.parse(value) > 10) {
+                                  return 'Value cannot more than 10';
                                 }
                                 return null;
                               }),
@@ -360,8 +392,12 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (value == null || double.parse(value) == 0) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Value is empty';
+                                } else if (double.parse(value) == 0) {
                                   return 'Value cannot be 0';
+                                } else if (double.parse(value) > 10) {
+                                  return 'Value cannot more than 10';
                                 }
                                 return null;
                               }),
@@ -390,8 +426,12 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (value == null || double.parse(value) == 0) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Value is empty';
+                                } else if (double.parse(value) == 0) {
                                   return 'Value cannot be 0';
+                                } else if (double.parse(value) > 10) {
+                                  return 'Value cannot more than 10';
                                 }
                                 return null;
                               }),
@@ -420,8 +460,12 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (value == null || double.parse(value) == 0) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Value is empty';
+                                } else if (double.parse(value) == 0) {
                                   return 'Value cannot be 0';
+                                } else if (double.parse(value) > 10) {
+                                  return 'Value cannot more than 10';
                                 }
                                 return null;
                               }),
@@ -450,8 +494,12 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (value == null || double.parse(value) == 0) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Value is empty';
+                                } else if (double.parse(value) == 0) {
                                   return 'Value cannot be 0';
+                                } else if (double.parse(value) > 10) {
+                                  return 'Value cannot more than 10';
                                 }
                                 return null;
                               }),
@@ -526,7 +574,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
       final docEvaluations = FirebaseFirestore.instance
           .collection('evaluations')
           .doc(widget.evaluationID);
-
+      //put all criteria in a list
       final List<double> criteria = [
         positive_statement,
         negative_statement,
@@ -541,10 +589,11 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
         confident,
         trustable
       ];
+      //pass the list of criteria to Calculations to calculate trustworthiness of seller
       final Calculations _calculations = Calculations();
-
+      //assign the ratings (low, moderate, high) to each criteria
       _calculations.assignRate(criteria);
-
+      //trustworthiness result
       final result = _calculations.trustResult;
 
       final json = {
@@ -565,15 +614,15 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
         'date_created': FieldValue.serverTimestamp(),
         'trust_result': result,
       };
-
+      //update query
       await docEvaluations.update(json);
-
+      //successful update data
       showDialog(
           context: context,
           barrierDismissible: false,
           builder: (context) => AlertDialog(
                 title: Text('Successful'),
-                content: Text('Seller has been successfully evaluated!'),
+                content: Text('Evaluation has been successfully updated!'),
                 actions: <Widget>[
                   TextButton(
                     child: Text(
@@ -596,6 +645,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                 ],
               ));
     } else {
+      //failed update data
       showDialog(
           context: context,
           barrierDismissible: false,
