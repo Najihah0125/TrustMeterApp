@@ -23,7 +23,9 @@ class ReevaluateScreen extends StatefulWidget {
 
 class _ReevaluateScreenState extends State<ReevaluateScreen> {
   final _formKey = GlobalKey<FormState>();
+  //get current user id
   final user = FirebaseAuth.instance.currentUser!;
+  //controllers to hold number rated for each criteria
   final posStateCtrl = TextEditingController();
   final negStateCtrl = TextEditingController();
   final quaInfoCtrl = TextEditingController();
@@ -39,6 +41,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
 
   @override
   void dispose() {
+    //dispose the value for next evaluation
     posStateCtrl.dispose();
     negStateCtrl.dispose();
     quaInfoCtrl.dispose();
@@ -56,6 +59,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //screen size
     Size size = MediaQuery.of(context).size;
     print(widget.evaluationID);
 
@@ -100,7 +104,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                           margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                           width: size.width,
                           child: Text(
-                            "i. Does the shop contains positive statement from other customers?",
+                            "1. Does the shop contains positive statement from other customers?",
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -134,7 +138,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                           margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                           width: size.width,
                           child: Text(
-                            "ii. Does the shop contains no/little negative statement from othe customers?",
+                            "2. Does the shop contains no/little negative statement from othe customers?",
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -168,7 +172,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                           margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                           width: size.width,
                           child: Text(
-                            "iii.  Does the quality of information shared by other customers helps you in making purchase decision?",
+                            "3.  Does the quality of information shared by other customers helps you in making purchase decision?",
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -202,7 +206,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                           margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                           width: size.width,
                           child: Text(
-                            "iv. Does the rating given by other customers reliable?",
+                            "4. Does the rating given by other customers reliable?",
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -236,7 +240,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                           margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                           width: size.width,
                           child: Text(
-                            "v. Does the recommendation from other customers reliable?",
+                            "5. Does the recommendation from other customers reliable?",
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -270,7 +274,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                           margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                           width: size.width,
                           child: Text(
-                            "vi. Does the information posted by the seller is correct?",
+                            "6. Does the information posted by the seller is correct?",
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -304,7 +308,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                           margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                           width: size.width,
                           child: Text(
-                            "vii. Does the information posted by the seller complete?",
+                            "7. Does the information posted by the seller complete?",
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -338,7 +342,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                           margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                           width: size.width,
                           child: Text(
-                            "viii. Does the information posted by the seller up to date?",
+                            "8. Does the information posted by the seller up to date?",
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -372,7 +376,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                           margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                           width: size.width,
                           child: Text(
-                            "ix. Does the information posted by the seller easy to understand?",
+                            "9. Does the information posted by the seller easy to understand?",
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -406,7 +410,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                           margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                           width: size.width,
                           child: Text(
-                            "x. Does the transaction and payment secure?",
+                            "10. Does the transaction and payment secure?",
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -440,7 +444,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                           margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                           width: size.width,
                           child: Text(
-                            "xi. You are confident that the seller is reliable.",
+                            "11. You are confident that the seller is reliable.",
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -474,7 +478,7 @@ class _ReevaluateScreenState extends State<ReevaluateScreen> {
                           margin: const EdgeInsets.fromLTRB(30, 0, 30, 25),
                           width: size.width,
                           child: Text(
-                            "xii. You believe that the seller is trustable.",
+                            "12. You believe that the seller is trustable.",
                             style: TextStyle(
                               fontSize: 16,
                             ),
