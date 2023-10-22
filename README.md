@@ -16,3 +16,6 @@ Trust Meter is a mobile application that helps users to evaluate the trustworthi
 8. Re-evaluate the trustworthiness of online sellers
 9. Add new seller
 10. Logout
+
+# Disclaimer
+All online sellers account and ratings are only for FYP example purposes. 
